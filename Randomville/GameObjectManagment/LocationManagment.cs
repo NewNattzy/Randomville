@@ -8,6 +8,7 @@ namespace GameObjectManagment
 
         static Random random = new Random();
 
+        // TODO: Завязать генерацию на БД
         static string libraryName = "Library\\Name.txt";
         static string libraryLandscape = "Library\\Landscape.txt";
         static string libraryWeather = "Library\\Weather.txt";

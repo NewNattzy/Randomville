@@ -1,20 +1,13 @@
-﻿using System;
-using System.Data.Entity;
-
-
-namespace Items
+﻿namespace Items
 {
-    public class Items : DbContext
+    public class Items
     {
         // TODO: Использовать коллекции и LINQ для хранения предметов в рюкзаке и их добавлении/поиске/удалении
 
-        protected Items()
-            : base("DBConnectionString")
+        public Items()
         {
             // 
         }
-
-
 
     }
 

@@ -82,7 +82,6 @@ namespace GameObjectManagment
 
             string[] variants = new string[] { "да", "конечно", "ага", "само собой", "точно" };
 
-            // TODO: Валидация ввода игрока (string? answer = Console.ReadLine();)
             Console.WriteLine($"Оракул: Сейчас у тебя {player.Exp} опыта и {player.Gold} золота. Для перехода на следующий уровень нужно {Player.newLevelExp} опыта и {player.Level*50} золота.");
             Console.WriteLine("Оракул: Ты точно хочешь поднять уровень? Враги тоже станут сильнее!");
             Console.Write($"{player.Name}: ");
