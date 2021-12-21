@@ -1,16 +1,26 @@
-﻿using System;
+﻿using Items;
 using System.Data.Entity;
 
-namespace Randomville
+namespace Storage
 {
-    internal class DataBase : DbContext
+    public class DataBase : DbContext
     {
 
-        protected DataBase()
+        public DataBase()
             : base()
         {
 
         }
+
+        public DbSet<Item> ItemsTable { get; set; }
+
+
+
+
+
+
+
+
 
     }
 

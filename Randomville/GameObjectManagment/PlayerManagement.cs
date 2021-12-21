@@ -9,9 +9,9 @@ namespace GameObjectManagment
         public static Player CreatePlayer()
         {   
             
-            string playerName = "";
-            string playerSpecial = "";
-            string[] special = new string[] { "Воин", "Лучник", "Маг" };
+            string name = "";
+            string special = "";
+            string[] specials = new string[] { "Воин", "Лучник", "Маг" };
 
             bool isValidName = false;
             bool isValidSpecial = false;
@@ -21,25 +21,25 @@ namespace GameObjectManagment
                 Console.WriteLine("Оракул: Введи свое имя, герой!");
                 Console.Write("Ты: ");
 
-                playerName = Console.ReadLine();
+                name = "Васич";// Console.ReadLine();
                 Console.Clear();
                 
-                if (!String.IsNullOrEmpty(playerName) && playerName.Length >= 3)
+                if (!String.IsNullOrEmpty(name) && name.Length >= 3)
                 {
-                    playerName = Regex.Replace(playerName.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
+                    name = Regex.Replace(name.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
                     isValidName = true;
                 }   
             }
 
             while (!isValidSpecial)
             {
-                Console.WriteLine($"Оракул: Отлично, {playerName}. Теперь выбери свою судьбу. Ты воин, лучник или маг?");
-                Console.Write($"{playerName}: ");
+                Console.WriteLine($"Оракул: Отлично, {name}. Теперь выбери свою судьбу. Ты воин, лучник или маг?");
+                Console.Write($"{name}: ");
 
-                playerSpecial = Console.ReadLine().ToLower();
-                playerSpecial = Regex.Replace(playerSpecial.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
+                special = "Воин"; // Console.ReadLine().ToLower();
+                special = Regex.Replace(special.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
 
-                if (special.Contains(playerSpecial))
+                if (specials.Contains(special))
                     isValidSpecial = true;
 
                 Console.Clear();
@@ -49,7 +49,7 @@ namespace GameObjectManagment
             int baseMana = 0;
             int gold = 0;
             
-            switch (playerSpecial)
+            switch (special)
             {
                 case "Воин":
                     baseHealth = 200;
@@ -73,7 +73,7 @@ namespace GameObjectManagment
                     break;
             }
 
-            return new Player(playerName, baseHealth, baseMana, 10, 1, gold, playerSpecial);
+            return new Player(name, baseHealth, baseMana, 10, 1, gold, special);
 
         }
 
