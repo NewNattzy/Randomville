@@ -23,7 +23,7 @@ namespace GameObjectManagment
         public static void EnemyArmyAttack(EnemyArmy army, City city)
         {
             city.Sieged();
-            if (city.Population < army.ShowArmyCount(army) * 10)
+            if (city.Population < army.GetArmyCount(army) * 10)
             {
                 city.Destroyed();
             }

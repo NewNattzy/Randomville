@@ -36,7 +36,7 @@ namespace GameObjects
             MonsterArmy.Remove(enemy);
         }
 
-        public int ShowArmyCount(EnemyArmy army)
+        public int GetArmyCount(EnemyArmy army)
         {
             return army.MonsterArmy.Count;
         }
