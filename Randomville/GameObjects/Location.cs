@@ -5,85 +5,30 @@ namespace GameObjects
     public abstract class Location : ILocation
     {
 
-        private static int index = 1;
         internal static int locationCount = 0;
-
-        public Location[] ArrayLocation;
-
-        private string name = "default";
-        private string status = "В порядке";
-        private string type = "default";
-        private string landscape = "default";
-        private string weather = "Солнечно";
-
-        private int danger = 0;
-        private int population = 0;
-
+        private protected Random random = new Random();
 
         public Location(string name, string type, string landscape, int danger, int population, string weather)
         {
             locationCount++;
-
-            this.name = name;
-            this.type = type;
-            this.landscape = landscape;
-            this.danger = danger;  
-            this.population = population;
-            this.weather = weather;
-
-            ArrayLocation = new Location[index];
-            index++;
+            Name = name;
+            Type = type;
+            Landscape = landscape;
+            Weather = weather;
+            Status = "Default";
+            Danger = danger;
+            Population = population;
         }
 
-        public Location this[int index]
-        {
-            get => ArrayLocation[index];
-            set => ArrayLocation[index] = value;
-        }
 
-        #region Property
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Landscape { get; set; }
+        public string Weather { get; set; }
+        public string Status { get; set; }
+        public int Danger { get; set; }
+        public int Population { get; set; }
 
-        public string Type
-        {
-            get => type;
-            set => type = value;
-        }
-
-        public string Landscape
-        {
-            get => landscape;
-            set => landscape = value;
-        }
-
-        public string Weather
-        {
-            get => weather;
-            set => weather = value;
-        }
-
-        public string Status
-        {
-            get => status;
-            set => status = value;
-        }
-
-        public int Danger
-        {
-            get => danger;
-            set => danger = value;
-        }
-
-        public int Population
-        {
-            get => population;
-            set => population = value;
-        }
-        #endregion
 
         public void Destroyed()
         {
@@ -91,8 +36,6 @@ namespace GameObjects
             Population = 0;
             Danger = 10;
         }
-
-        public abstract void Sieged();
         public abstract void Cursed();
         public abstract void Improved();
       

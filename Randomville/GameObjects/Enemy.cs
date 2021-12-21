@@ -12,25 +12,6 @@
             this.type = type;
         }
 
-        // TODO: Добавить модификаторы в зависимости от уровня сложности под врагов
-        public override int Health
-        {
-            get => health;
-            set => health = value;
-        }
-
-        public override int Mana
-        {
-            get => health;
-            set => health = value;
-        }
-
-        // TODO: Реализовать механику фраз под врагов
-        public override void Talk(string message)
-        {
-            Console.WriteLine($"{Name} say: Ррр!");
-        }
-
     }
 
 }

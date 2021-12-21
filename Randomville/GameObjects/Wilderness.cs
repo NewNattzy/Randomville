@@ -13,7 +13,7 @@ namespace GameObjects
 
         }
 
-        public override void Sieged()
+        public void Sieged()
         {
             Status = "Засада";
             Danger = 8;

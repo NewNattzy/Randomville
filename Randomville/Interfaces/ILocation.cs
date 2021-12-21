@@ -7,8 +7,6 @@ namespace Interfaces
 
         public static int locationCount;
 
-        public Location this[int index] { get; set; }
-
         public string Name { get; set; }
         public string Type { get; set; }
         public string Landscape { get; set; }
@@ -19,7 +17,6 @@ namespace Interfaces
 
 
         public void Destroyed();
-        public void Sieged();
         public void Cursed();
         public void Improved();
 

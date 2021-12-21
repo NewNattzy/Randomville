@@ -4,16 +4,19 @@ namespace GameObjects
 {
     public class EnemyArmy
     {
+        private Random random = new Random();
+
         public const int MAX_ARMY_COUNT = 100;
         private List<Enemy> MonsterArmy = new List<Enemy>();
 
         public EnemyArmy(string name)
         {
             Name = name;
+            Gold = random.Next(10, 200);
         }
 
         public string Name { get; set; }
-
+        public int Gold { get; set; }
         public Enemy this[int index]
         {
             get => MonsterArmy[index];

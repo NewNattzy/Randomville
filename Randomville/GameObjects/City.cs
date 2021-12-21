@@ -6,26 +6,38 @@ namespace GameObjects
     {
 
         private static int maxPopulation = Config.BaseLocationPopulation * 400;
+        private double losses;
 
         public City(string name, string type, string landscape, int danger, int population, string weather)
-            : base (name, type, landscape, danger, population, weather)
+            : base(name, type, landscape, danger, population, weather)
         {
-
+            Gold = random.Next(1000, 3000);
         }
 
-        public override void Sieged()
-        {
-            Status = "Осажден";
+        public int Gold { get; set; }
 
-            if (Population % 2 == 0 && Population != 0)
-                Population /= 2;
-            else if (Population < 99)
+        public void Robbery()
+        {
+            if (Status != "Разграблен")
+                Status = "Разграблен";
+
+            losses = Gold * 0.5;
+            Gold = (int)losses;
+
+            if (Gold < 500)
+                Gold = 0;
+        }
+
+        public void Sieged()
+        {
+            if (Status != "Осажден")
+                Status = "Осажден";
+
+            losses = Population * 0.7;
+            Population = (int)losses;
+
+            if (Population < 100)
                 Destroyed();
-            else
-            {
-                Population++;
-                Population /= 2;
-            }
 
             Danger = 8;
         }
@@ -40,7 +52,7 @@ namespace GameObjects
 
             Population -= 50 * Danger;
 
-            if (Population <= 0)
+            if (Population < 100)
                 Destroyed();
             if (Danger < 10)
                 Danger++;
@@ -48,10 +60,17 @@ namespace GameObjects
 
         public override void Improved()
         {
+            if (Status != "В порядке")
+                Status = "В порядке";
+
             if (Population < maxPopulation)
-                Population += 250;
-            else if (Population > maxPopulation)
-            { 
+            {
+                Population += 100;
+                Gold += 500;
+            }
+            else if (Population > maxPopulation && Gold > 5000)
+            {
+                Gold += 500;
                 Population = maxPopulation;
                 Status = "Процветает";
                 Danger = 0;
