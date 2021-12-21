@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace GameObjects
 {
     public class EnemyArmy
@@ -34,9 +33,12 @@ namespace GameObjects
         {
             if (enemy == null)
                 throw new ArgumentNullException(nameof(enemy) + "Enemy is null");
+            MonsterArmy.Remove(enemy);
+        }
 
-            if (MonsterArmy.Count <= MAX_ARMY_COUNT)
-                MonsterArmy.Remove(enemy);
+        public int ShowArmyCount(EnemyArmy army)
+        {
+            return army.MonsterArmy.Count;
         }
 
     }

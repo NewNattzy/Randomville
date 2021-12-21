@@ -11,7 +11,7 @@ namespace GameObjects
         public Location[] ArrayLocation;
 
         private string name = "default";
-        private string status = "normal";
+        private string status = "В порядке";
         private string type = "default";
         private string landscape = "default";
         private string weather = "Солнечно";

@@ -14,14 +14,6 @@ namespace Storage
 
         public DbSet<Item> ItemsTable { get; set; }
 
-
-
-
-
-
-
-
-
     }
 
 }
