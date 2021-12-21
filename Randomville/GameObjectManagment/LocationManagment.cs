@@ -26,7 +26,7 @@ namespace GameObjectManagment
             string weather = File.ReadLines(libraryWeather).Skip(random.Next(countLineInWeather)).First();
 
             int danger = random.Next(0, 3);
-            int population = random.Next(0, 2500);
+            int population = random.Next(1000, 2500);
 
             return new City(name, type, landscape, danger, population, weather);
 

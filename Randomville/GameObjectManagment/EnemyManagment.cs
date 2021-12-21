@@ -6,13 +6,13 @@ namespace GameObjectManagment
     public static class EnemyManagment
     {
 
-        private static Random random = new Random();
+        private static readonly Random random = new Random();
 
         public static Enemy CreateSingleEnemy(string type)
         {
             if (string.IsNullOrEmpty(type))
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException(nameof(type));
             }
 
             string[] names = { "Волк", "Ворона", "Крокодил" };
@@ -34,11 +34,14 @@ namespace GameObjectManagment
                 return army;
         }
 
-        public static void EnemyAttackCity(EnemyArmy army, City city)
+        public static void SiegeCity(EnemyArmy army, City city)
         {
             city.Sieged();
-            if (city.Population < army.GetArmyCount(army) * 10)
+            army.Gold += city.Robbery();
+
+            if (city.Population < army.UnitCount * 10)
             {
+                army.Gold += city.Gold;
                 city.Destroyed();
             }
         }

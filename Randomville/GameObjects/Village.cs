@@ -5,28 +5,30 @@ namespace GameObjects
     public class Village : Location
     {
 
-        private static int maxPopulation = Config.BaseLocationPopulation * 40;
-        private double losses;
+        private int maxPopulation;
+        private double calcPercent;
 
         public Village(string name, string type, string landscape, int danger, int population, string weather)
             : base(name, type, landscape, danger, population, weather)
         {
             Gold = random.Next(100, 1000);
+            maxPopulation = Config.BaseLocationPopulation * (random.Next(10, 50));
         }
 
         public int Gold { get; set; }
 
-        public void Robbery()
+
+        public int Robbery()
         {
             if (Status != "Разграблен")
                 Status = "Разграблен";
 
-            losses = Gold * 0.5;
-            Gold = (int)losses;
+            calcPercent = Gold * 0.5;
+            Gold = (int)calcPercent;
 
-            if (Gold < 200)
-                Gold = 0;
+            return Gold;
         }
+
 
         public override void Cursed()
         {
@@ -44,24 +46,28 @@ namespace GameObjects
                 Danger++;
         }
 
+
         public override void Improved()
         {
+            calcPercent = Population * 0.05;
+
             if (Status != "В порядке")
                 Status = "В порядке";
 
-            if (Population < maxPopulation)
-            { 
-                Population += 50;
-                Gold += 100;
-            }
-            else if (Population > maxPopulation && Gold > 1000)
+            if (Population > maxPopulation && Gold > 5000)
             {
-                Gold += 100;
+                Gold += (int)calcPercent;
                 Population = maxPopulation;
                 Status = "Процветает";
                 Danger = 0;
             }
+            else if (Population < maxPopulation)
+            {
+                Population += (int)calcPercent;
+                Gold += (int)calcPercent;
+            }
         }
+
 
     }
 

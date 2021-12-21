@@ -11,11 +11,12 @@ namespace GameObjects
         public Location(string name, string type, string landscape, int danger, int population, string weather)
         {
             locationCount++;
+            Status = "В порядке";
+
             Name = name;
             Type = type;
             Landscape = landscape;
             Weather = weather;
-            Status = "Default";
             Danger = danger;
             Population = population;
         }

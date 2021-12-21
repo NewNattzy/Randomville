@@ -12,10 +12,12 @@ namespace GameObjects
         public EnemyArmy(string name)
         {
             Name = name;
+            UnitCount = 0;
             Gold = random.Next(10, 200);
         }
 
         public string Name { get; set; }
+        public int UnitCount { get; set; }
         public int Gold { get; set; }
         public Enemy this[int index]
         {
@@ -29,7 +31,11 @@ namespace GameObjects
                 throw new ArgumentNullException(nameof(enemy) + "Enemy is null");
 
             if (MonsterArmy.Count < MAX_ARMY_COUNT)
+            {
                 MonsterArmy.Add(enemy);
+                UnitCount = MonsterArmy.Count;
+            }
+                
         }
 
         public void Remove(Enemy enemy)
@@ -37,11 +43,6 @@ namespace GameObjects
             if (enemy == null)
                 throw new ArgumentNullException(nameof(enemy) + "Enemy is null");
             MonsterArmy.Remove(enemy);
-        }
-
-        public int GetArmyCount(EnemyArmy army)
-        {
-            return army.MonsterArmy.Count;
         }
 
     }
