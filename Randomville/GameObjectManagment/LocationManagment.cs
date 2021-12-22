@@ -43,8 +43,6 @@ namespace GameObjectManagment
             int danger = 0;
             int population = 0;
 
-
-
             return new Village(name, type, landscape, danger, population, weather);
 
         }
@@ -58,11 +56,8 @@ namespace GameObjectManagment
             string weather = "";
 
             int danger = 0;
-            int population = 0;
 
-
-
-            return new Wilderness(name, type, landscape, danger, population, weather);
+            return new Wilderness(name, type, landscape, danger, weather);
 
         }
 

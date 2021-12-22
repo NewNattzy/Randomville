@@ -15,12 +15,13 @@ namespace GameObjectManagment
                 throw new ArgumentNullException(nameof(type));
             }
 
-            string[] names = { "Волк", "Ворона", "Крокодил" };
             int baseHealth = 100;
             int baseMana = 100;
             int gold = 100;
+            string fraction = "Нежить";
+            string rank = "Рядовой";
 
-            return new Enemy(names[random.Next(0, names.Length)], baseHealth, baseMana, 10, 1, gold, type);
+            return new Enemy(type, baseHealth, baseMana, 10, 1, 10, gold, fraction, rank);
         }
 
         public static EnemyArmy CreateArmyEnemy(string type, int count)

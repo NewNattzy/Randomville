@@ -4,14 +4,16 @@
     public class Enemy : Creature
     {
 
-        public Enemy(string name, int basehealth, int basemana, int damage, int level, int gold, string type)
-            : base(name, basehealth, basemana, damage, level, gold)
+        public Enemy(string type, int basehealth, int basemana, int damage, int level, int exp, int gold, string fraction, string rank)
+            : base(basehealth, basemana, damage, level, exp, gold)
         {
             Type = type;
+            Fraction = fraction;
+            Rank = rank;
         }
-
         public string Type { get; set; }
-
+        public string Fraction { get; set; }
+        public string Rank { get; set; }
     }
 
 }

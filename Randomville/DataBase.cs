@@ -1,4 +1,4 @@
-﻿using Items;
+﻿using GameObjects;
 using System.Data.Entity;
 
 namespace Storage
@@ -7,12 +7,14 @@ namespace Storage
     {
 
         public DataBase()
-            : base()
+            : base("DefaultConnection")
         {
 
         }
 
-        public DbSet<Item> ItemsTable { get; set; }
+
+        public DbSet<Enemy> Enemyes { get; set; }
+
 
     }
 

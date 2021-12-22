@@ -3,7 +3,6 @@ using GameConfig;
 using GameObjects;
 using GameObjectManagment;
 using Storage;
-using Items;
 
 namespace ConsoleGame
 {
