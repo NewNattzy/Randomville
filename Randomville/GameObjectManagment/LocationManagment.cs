@@ -6,16 +6,16 @@ namespace GameObjectManagment
     public static class LocationManagment
     {
 
-        static Random random = new Random();
+        private static Random random = new Random();
 
-        // TODO: Завязать генерацию на БД
-        static string libraryName = "Library\\Name.txt";
-        static string libraryLandscape = "Library\\Landscape.txt";
-        static string libraryWeather = "Library\\Weather.txt";
+        // TODO: Завязать генерацию на БД, этот мусор удалить
+        private static readonly string libraryName = "Library\\Name.txt";
+        private static readonly string libraryLandscape = "Library\\Landscape.txt";
+        private static readonly string libraryWeather = "Library\\Weather.txt";
 
-        static int countLineInName = File.ReadAllLines(libraryName).Length;
-        static int countLineInLandscape = File.ReadAllLines(libraryLandscape).Length;
-        static int countLineInWeather = File.ReadAllLines(libraryWeather).Length;
+        private static readonly int countLineInName = File.ReadAllLines(libraryName).Length;
+        private static readonly int countLineInLandscape = File.ReadAllLines(libraryLandscape).Length;
+        private static readonly int countLineInWeather = File.ReadAllLines(libraryWeather).Length;
 
         public static City CreateCity()
         {

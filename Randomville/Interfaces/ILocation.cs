@@ -5,10 +5,6 @@ namespace Interfaces
     public interface ILocation
     {
 
-        public static double calcPercent;
-
-        public static int locationCount;
-
         public string Name { get; set; }
         public string Type { get; set; }
         public string Landscape { get; set; }

@@ -30,7 +30,7 @@ namespace GameObjects
         public void Add(Enemy enemy)
         {
             if (enemy == null)
-                throw new ArgumentNullException(nameof(enemy) + "Enemy is null");
+                throw new ArgumentNullException(nameof(enemy));
 
             if (MonsterArmy.Count < MAX_ARMY_COUNT)
             {
@@ -43,7 +43,7 @@ namespace GameObjects
         public void Remove(Enemy enemy)
         {
             if (enemy == null)
-                throw new ArgumentNullException(nameof(enemy) + "Enemy is null");
+                throw new ArgumentNullException(nameof(enemy));
             MonsterArmy.Remove(enemy);
         }
 

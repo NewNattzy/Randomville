@@ -13,7 +13,7 @@ namespace Storage
         }
 
 
-        public DbSet<Enemy> Enemyes { get; set; }
+        // public DbSet<Enemy> Enemyes { get; set; }
 
 
     }

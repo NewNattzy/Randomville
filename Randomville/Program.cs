@@ -10,7 +10,7 @@ namespace ConsoleGame
     class Program
     {
 
-        public static void StartGame(Player player, int worldMap)
+        public static void StartGame(Player player)
         {
             PlayerManagement.ShowPlayerInfo(player);
         }
@@ -24,7 +24,6 @@ namespace ConsoleGame
         static void Main(string[] args)
         {
             GamePreparation();
-            Player player = PlayerManagement.CreatePlayer();
 
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();

@@ -6,8 +6,6 @@ namespace GameObjectManagment
     public static class EnemyManagment
     {
 
-        private static readonly Random random = new Random();
-
         public static Enemy CreateSingleEnemy(string type)
         {
             if (string.IsNullOrEmpty(type))
