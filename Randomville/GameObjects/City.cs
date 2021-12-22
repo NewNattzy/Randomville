@@ -2,7 +2,7 @@
 
 namespace GameObjects
 {
-    public class City : Location
+    public class City : Settlement
     {
 
         private int maxPopulation;
@@ -22,13 +22,13 @@ namespace GameObjects
             if (Status != "Разграблен")
                 Status = "Разграблен";
 
-            calcPercent = Gold * 0.5;
+            calcPercent = Gold * 0.25;
             Gold = (int)calcPercent;
 
             return Gold;
         }
 
-        public void Sieged()
+        public int Besiege()
         {
             if (Status != "Осажден")
                 Status = "Осажден";
@@ -40,9 +40,11 @@ namespace GameObjects
                 Destroyed();
 
             Danger = 8;
+
+            return (int)calcPercent;
         }
 
-        public override void Cursed()
+        public override void Curse()
         {
             if (Status != "Проклят")
             {
@@ -59,9 +61,12 @@ namespace GameObjects
         }
 
 
-        public override void Improved()
+        public override void Improve()
         {
-            calcPercent = Population * 0.05;
+            if (Population == 0)
+                Population = 500;
+
+            calcPercent = Population * 0.1;
 
             if (Status != "В порядке")
                 Status = "В порядке";

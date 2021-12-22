@@ -27,13 +27,8 @@ namespace ConsoleGame
             GamePreparation();
             Player player = PlayerManagement.CreatePlayer();
 
-            EnemyArmy army = EnemyManagment.CreatyEnemyArmy("Нежить", 80);
-
-            City city = LocationManagment.CreateCity();
-
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();
-         
         }
 
     }
