@@ -23,10 +23,14 @@ namespace GameObjectManagment
             return new Enemy(names[random.Next(0, names.Length)], baseHealth, baseMana, 10, 1, gold, type);
         }
 
-        // TODO: Валидация входящих параметров
-        public static EnemyArmy CreatyEnemyArmy(string type, int count)
+        public static EnemyArmy CreateArmyEnemy(string type, int count)
         {
-                EnemyArmy army = new EnemyArmy($"Армия: {type} ({count})");
+            if (string.IsNullOrEmpty(type))
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
+            EnemyArmy army = new EnemyArmy($"Армия: {type} ({count})");
 
                 for (int i = 0; i < count; i++)
                     army.Add(CreateSingleEnemy($"{type}"));
@@ -34,16 +38,13 @@ namespace GameObjectManagment
                 return army;
         }
 
-        public static void SiegeCity(EnemyArmy army, City city)
+        public static void BesiegeCity(EnemyArmy army, City city)
         {
-            city.Sieged();
-            army.Gold += city.Robbery();
+            army.KillScore += city.Besiege();
 
-            if (city.Population < army.UnitCount * 10)
-            {
+            if (city.Status == "Уничтожен")
+                army.DestroyScore++;
                 army.Gold += city.Gold;
-                city.Destroyed();
-            }
         }
 
     }

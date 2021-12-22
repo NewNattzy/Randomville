@@ -5,6 +5,8 @@ namespace Interfaces
     public interface ILocation
     {
 
+        public static double calcPercent;
+
         public static int locationCount;
 
         public string Name { get; set; }
@@ -13,12 +15,10 @@ namespace Interfaces
         public string Status { get; set; }
 
         public int Danger { get; set; }
-        public int Population { get; set; }
 
-
-        public void Destroyed();
-        public void Cursed();
-        public void Improved();
+        public void Destroy();
+        public void Curse();
+        public void Improve();
 
     }
 

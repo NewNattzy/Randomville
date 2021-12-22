@@ -19,6 +19,8 @@ namespace GameObjects
         public string Name { get; set; }
         public int UnitCount { get; set; }
         public int Gold { get; set; }
+        public int KillScore { get; set; }
+        public int DestroyScore { get; set; }
         public Enemy this[int index]
         {
             get => MonsterArmy[index];

@@ -2,7 +2,7 @@
 
 namespace GameObjects
 {
-    public class Village : Location
+    public class Village : Settlement
     {
 
         private int maxPopulation;
@@ -30,7 +30,7 @@ namespace GameObjects
         }
 
 
-        public override void Cursed()
+        public override void Curse()
         {
             if (Status != "Проклят")
             {
@@ -41,14 +41,17 @@ namespace GameObjects
             Population -= 10 * Danger;
 
             if (Population < 20)
-                Destroyed();
+                Destroy();
             if (Danger < 10)
                 Danger++;
         }
 
 
-        public override void Improved()
+        public override void Improve()
         {
+            if (Population == 0)
+                Population = 100;
+
             calcPercent = Population * 0.05;
 
             if (Status != "В порядке")

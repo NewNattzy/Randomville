@@ -21,7 +21,7 @@ namespace GameObjectManagment
                 Console.WriteLine("Оракул: Введи свое имя, герой!");
                 Console.Write("Ты: ");
 
-                name = "Васич";// Console.ReadLine();
+                name = Console.ReadLine();
                 Console.Clear();
                 
                 if (!String.IsNullOrEmpty(name) && name.Length >= 3)
@@ -36,7 +36,7 @@ namespace GameObjectManagment
                 Console.WriteLine($"Оракул: Отлично, {name}. Теперь выбери свою судьбу. Ты воин, лучник или маг?");
                 Console.Write($"{name}: ");
 
-                special = "Воин"; // Console.ReadLine().ToLower();
+                special = Console.ReadLine().ToLower();
                 special = Regex.Replace(special.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
 
                 if (specials.Contains(special))

@@ -1,55 +1,63 @@
 ﻿using GameConfig;
+using Interfaces;
 
 namespace GameObjects
 {
-    public class Wilderness : Location
+    public class Wilderness : ILocation
     {
 
-        private static int maxPopulation = Config.BaseLocationPopulation;
+        private double calcPersent;
+        private const int MAX_RESOURCES = 100;
 
-        public Wilderness(string name, string type, string landscape, int danger, int population, string weather)
-            : base(name, type, landscape, danger, population, weather)
+        public Wilderness(string name, string type, string landscape, int danger, string weather)
         {
-
+            Name = name;
+            Type = type;
+            Landscape = landscape;
+            Danger = danger;
+            Weather = weather;
         }
 
-        public void Sieged()
-        {
-            Status = "Засада";
-            Danger = 8;
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Landscape { get; set; }
+        public string Weather { get; set; }
+        public string Status { get; set; }
+        public int Danger { get; set; }
+        public int Resources { get; set; }
 
-            if (Population > 0)
-                Population--;
-            else
-                Destroyed();
-        }
-
-        public override void Cursed()
+        public void Curse()
         {
             if (Status != "Проклят")
             {
                 Status = "Проклят";
                 Weather = "Густой туман";
             }
-            
-            Population -= Danger;
 
-            if (Population <= 0)
-                Destroyed();
-            if (Danger < 10)
-                Danger++;
+            calcPersent = Resources * 0.2;
+            Resources -= (int)calcPersent;
         }
 
-        public override void Improved()
+        public void Improve()
         {
-            if (Population < maxPopulation)
-                Population++;
-            else if (Population > maxPopulation)
+            if (Resources <= 0)
+                Resources = 10;
+
+            if (Status != "В порядке")
+                Status = "В порядке";
+
+            if (Resources > 0 && Resources < MAX_RESOURCES)
+                calcPersent = Resources * 0.2;
+            else if (Resources >= MAX_RESOURCES)
             {
-                Population = maxPopulation;
-                Status = "В норме";
-                Danger = 0;
+                Resources = MAX_RESOURCES;
+                Status = "Процветает";
             }
+        }
+
+        public void Destroy()
+        {
+            throw new NotImplementedException();
         }
     }
 
