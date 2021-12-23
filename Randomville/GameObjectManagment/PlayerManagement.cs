@@ -1,5 +1,6 @@
 ﻿using GameObjects;
 using System.Text.RegularExpressions;
+using DevHelper;
 
 namespace GameObjectManagment
 {
@@ -21,12 +22,12 @@ namespace GameObjectManagment
                 Console.WriteLine("Оракул: Введи свое имя, герой!");
                 Console.Write("Ты: ");
 
-                name = "Кекер";// Console.ReadLine();
+                name = "Нашер";// Console.ReadLine();
                 Console.Clear();
                 
-                if (!String.IsNullOrEmpty(name) && name.Length >= 3)
+                if (!string.IsNullOrEmpty(name) && name.Length >= 3)
                 {
-                    name = Regex.Replace(name.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
+                    name.ToUpperFirstChar();
                     isValidName = true;
                 }   
             }
@@ -36,8 +37,8 @@ namespace GameObjectManagment
                 Console.WriteLine($"Оракул: Отлично, {name}. Теперь выбери свою судьбу. Ты воин, лучник или маг?");
                 Console.Write($"{name}: ");
 
-                special = "Воин"; //Console.ReadLine().ToLower();
-                special = Regex.Replace(special.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
+                special = "Воин";
+                special.ToUpperFirstChar();
 
                 if (specials.Contains(special))
                     isValidSpecial = true;

@@ -6,6 +6,8 @@ namespace GameObjectManagment
     public static class EnemyManagment
     {
 
+        private static Random random = new Random();
+
         public static Enemy CreateSingleEnemy(string type)
         {
             if (string.IsNullOrEmpty(type))
@@ -13,13 +15,17 @@ namespace GameObjectManagment
                 throw new ArgumentNullException(nameof(type));
             }
 
-            int baseHealth = 100;
+            int baseHealth = random.Next(100, 1000);
             int baseMana = 100;
             int gold = 100;
+            string rank = "";
             string fraction = "Нежить";
-            string rank = "Рядовой";
+            if (baseHealth < 300)
+                rank = "Рядовой";
+            else if (baseHealth > 300)
+                rank = "Солдат";
 
-            return new Enemy(type, baseHealth, baseMana, 10, 1, 10, gold, fraction, rank);
+                return new Enemy(type, baseHealth, baseMana, 10, 1, 10, gold, fraction, rank);
         }
 
         public static EnemyArmy CreateArmyEnemy(string type, int count)

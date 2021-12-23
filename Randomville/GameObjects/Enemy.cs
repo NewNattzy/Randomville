@@ -1,4 +1,6 @@
-﻿namespace GameObjects
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GameObjects
 {
 
     public class Enemy : Creature
@@ -11,9 +13,14 @@
             Fraction = fraction;
             Rank = rank;
         }
+
+        [Key]
+        public int Id { get; set; }
+
         public string Type { get; set; }
         public string Fraction { get; set; }
         public string Rank { get; set; }
+
     }
 
 }

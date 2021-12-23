@@ -3,6 +3,7 @@ using GameConfig;
 using GameObjects;
 using GameObjectManagment;
 using Storage;
+using System.Linq;
 
 namespace ConsoleGame
 {
@@ -24,6 +25,8 @@ namespace ConsoleGame
         static void Main(string[] args)
         {
             GamePreparation();
+
+            SqlConnector.GetCollection();
 
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();
