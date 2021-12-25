@@ -26,7 +26,9 @@ namespace ConsoleGame
         {
             GamePreparation();
 
-            SqlConnector.GetCollection();
+            WorldMap worldMap = new WorldMap();
+            worldMap.CreateMap();
+            worldMap.ShowMap();
 
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();
