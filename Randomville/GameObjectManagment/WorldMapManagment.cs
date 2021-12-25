@@ -1,4 +1,5 @@
 ﻿using GameConfig;
+using GameObjects;
 
 namespace GameObjectManagment
 {
@@ -6,6 +7,12 @@ namespace GameObjectManagment
     {
 
         public static void CreateMap()
+        {
+
+
+        }
+
+        public static void AddObjectOnMap(int x, int y)
         {
 
         }
