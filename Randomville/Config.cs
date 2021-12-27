@@ -16,7 +16,7 @@
 
         public static void SettingValues()
         {
-            MaxMapSize = 1000;
+            MaxMapSize = 200;
             GameObjectsLimit = 100;
             BaseLocationPopulation = 10;
             CreatureMaxLevel = 100;

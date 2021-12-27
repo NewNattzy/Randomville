@@ -1,5 +1,6 @@
 ﻿using GameObjects;
 using System.Text.RegularExpressions;
+using DevHelper;
 
 namespace GameObjectManagment
 {
@@ -9,9 +10,9 @@ namespace GameObjectManagment
         public static Player CreatePlayer()
         {   
             
-            string playerName = "";
-            string playerSpecial = "";
-            string[] special = new string[] { "Воин", "Лучник", "Маг" };
+            string name = "";
+            string special = "";
+            string[] specials = new string[] { "Воин", "Лучник", "Маг" };
 
             bool isValidName = false;
             bool isValidSpecial = false;
@@ -21,25 +22,25 @@ namespace GameObjectManagment
                 Console.WriteLine("Оракул: Введи свое имя, герой!");
                 Console.Write("Ты: ");
 
-                playerName = Console.ReadLine();
+                name = "Нашер";// Console.ReadLine();
                 Console.Clear();
                 
-                if (!String.IsNullOrEmpty(playerName) && playerName.Length >= 3)
+                if (!string.IsNullOrEmpty(name) && name.Length >= 3)
                 {
-                    playerName = Regex.Replace(playerName.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
+                    name.ToUpperFirstChar();
                     isValidName = true;
                 }   
             }
 
             while (!isValidSpecial)
             {
-                Console.WriteLine($"Оракул: Отлично, {playerName}. Теперь выбери свою судьбу. Ты воин, лучник или маг?");
-                Console.Write($"{playerName}: ");
+                Console.WriteLine($"Оракул: Отлично, {name}. Теперь выбери свою судьбу. Ты воин, лучник или маг?");
+                Console.Write($"{name}: ");
 
-                playerSpecial = Console.ReadLine().ToLower();
-                playerSpecial = Regex.Replace(playerSpecial.ToLower(), @"\b[a-zа-яё]", m => m.Value.ToUpper());
+                special = "Воин";
+                special.ToUpperFirstChar();
 
-                if (special.Contains(playerSpecial))
+                if (specials.Contains(special))
                     isValidSpecial = true;
 
                 Console.Clear();
@@ -49,7 +50,7 @@ namespace GameObjectManagment
             int baseMana = 0;
             int gold = 0;
             
-            switch (playerSpecial)
+            switch (special)
             {
                 case "Воин":
                     baseHealth = 200;
@@ -73,7 +74,7 @@ namespace GameObjectManagment
                     break;
             }
 
-            return new Player(playerName, baseHealth, baseMana, 10, 1, gold, playerSpecial);
+            return new Player(name, baseHealth, baseMana, 10, 1, 10, gold, special);
 
         }
 
@@ -82,7 +83,6 @@ namespace GameObjectManagment
 
             string[] variants = new string[] { "да", "конечно", "ага", "само собой", "точно" };
 
-            // TODO: Валидация ввода игрока (string? answer = Console.ReadLine();)
             Console.WriteLine($"Оракул: Сейчас у тебя {player.Exp} опыта и {player.Gold} золота. Для перехода на следующий уровень нужно {Player.newLevelExp} опыта и {player.Level*50} золота.");
             Console.WriteLine("Оракул: Ты точно хочешь поднять уровень? Враги тоже станут сильнее!");
             Console.Write($"{player.Name}: ");

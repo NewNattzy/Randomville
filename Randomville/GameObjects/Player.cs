@@ -10,39 +10,19 @@ namespace GameObjects
         public string Special;
 
         internal static int newLevelExp = 500;
-        private int exp = 0;
-        
-        public Player(string name, int basehealth, int basemana, int damage, int level, int gold, string special)
-            : base(name, basehealth, basemana, damage, level, gold)
+
+        public Player(string name, int basehealth, int basemana, int damage, int level, int exp, int gold, string special)
+            : base(basehealth, basemana, damage, level, exp, gold)
         {
+            // TODO: Проверка входных параметров
+            Name = name;
             Special = special;
         }
 
-        // TODO: Добавить модификаторы в зависимости от уровня сложности под игрока
-        public override int Health
-        {
-            get => health;
-            set => health = value;
-        }
-
-        public override int Mana
-        {
-            get => mana; 
-            set => mana = value; 
-        }
-
-        public int Exp
-        {
-            get => exp;
-            set => exp = value;
-        }
-
-        // TODO: Реализовать механику разговоров под игрока
-        public override void Talk(string message)
-        {
-            Console.Write($"{Name} say: ");
-            Console.ReadLine();
-        }
+        [Required(ErrorMessage = "Оракул: Ты ввел недопустимое имя")]
+        [StringLength(10, MinimumLength = 3)]
+        public string Name { get; set; }
+        public int Resources { get; set; }
 
     }
 

@@ -1,6 +1,11 @@
-﻿using GameConfig;
+﻿using System;
+using GameConfig;
 using GameObjects;
 using GameObjectManagment;
+using Storage;
+using System.Linq;
+using System.Xml.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ConsoleGame
 {
@@ -8,7 +13,7 @@ namespace ConsoleGame
     class Program
     {
 
-        public static void StartGame(Player player, int worldMap)
+        public static void StartGame(Player player)
         {
             PlayerManagement.ShowPlayerInfo(player);
         }
@@ -17,44 +22,34 @@ namespace ConsoleGame
         {
             // TODO: Методы необходимые для старта игры, подготовка конфигов, карты, первых объектов
             Config.SettingValues();
-            
-            // WorldMap worldMap = WorldMapManagment.CreateMap();
-            int worldMap = 10;
-            
-
         }
 
         static void Main(string[] args)
         {
-            
             GamePreparation();
-            //StartGame();
-            City city = LocationManagment.CreateCity();
 
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    city = LocationManagment.CreateCity();
-            //    Console.WriteLine($"Название: {city.Name}");
-            //    Console.WriteLine($"Ландшафт: {city.Landscape}");
-            //    Console.WriteLine($"Опасность: {city.Danger}");
-            //    Console.WriteLine($"Население: {city.Population}");
-            //    Console.WriteLine($"Погода: {city.Weather}\n");
-            //}
+            //WorldMap worldMap = new WorldMap();
+            //worldMap.CreateMap();
+            //worldMap.ShowMap();
 
-            Player player = PlayerManagement.CreatePlayer();
 
-            player.Gold = 1000;
-            player.Exp = 1000;
-            
-            for (int i = 0; i < 2; i++)
+            EnemyArmy army = EnemyManagment.CreateArmyEnemy("Нежить", 100);
+
+            var binFormatter = new BinaryFormatter();
+
+            using(var file = new FileStream("Save.bin", FileMode.OpenOrCreate))
             {
-                PlayerManagement.ShowPlayerInfo(player);
-                PlayerManagement.LevelUP(player);
-            }
-            
-            Console.WriteLine("Конец игры");
-            Console.ReadKey();
+                binFormatter.Serialize(file, army);
+            };
 
+            using (var file = new FileStream("Save.bin", FileMode.OpenOrCreate))
+            {
+                var newArmy = binFormatter.Deserialize(file);
+                army = (EnemyArmy)newArmy;
+            };
+
+            Console.WriteLine("\nКонец игры");
+            Console.ReadKey();
         }
 
     }

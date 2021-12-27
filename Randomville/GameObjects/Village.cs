@@ -2,35 +2,36 @@
 
 namespace GameObjects
 {
-    public class Village : Location
+    public class Village : Settlement
     {
 
-        private static int maxPopulation = Config.BaseLocationPopulation * 40;
+        private int maxPopulation;
+        private double calcPercent;
 
         public Village(string name, string type, string landscape, int danger, int population, string weather)
             : base(name, type, landscape, danger, population, weather)
         {
-
+            // TODO: Проверка входных параметров
+            Gold = random.Next(100, 1000);
+            maxPopulation = Config.BaseLocationPopulation * (random.Next(10, 50));
         }
 
-        public override void Sieged()
+        public int Gold { get; set; }
+
+
+        public int Robbery()
         {
-            Status = "Осажден";
+            if (Status != "Разграблен")
+                Status = "Разграблен";
 
-            if (Population % 2 == 0 && Population != 0)
-                Population /= 2;
-            else if (Population < 10)
-                Destroyed();
-            else
-            {
-                Population++;
-                Population /= 2;
-            }
+            calcPercent = Gold * 0.5;
+            Gold = (int)calcPercent;
 
-            Danger = 8;
+            return Gold;
         }
 
-        public override void Cursed()
+
+        public override void Curse()
         {
             if (Status != "Проклят")
             {
@@ -40,23 +41,37 @@ namespace GameObjects
            
             Population -= 10 * Danger;
 
-            if (Population <= 0)
-                Destroyed();
+            if (Population < 20)
+                Destroy();
             if (Danger < 10)
                 Danger++;
         }
 
-        public override void Improved()
+
+        public override void Improve()
         {
-            if (Population < maxPopulation)
-                Population += 50;
-            else if (Population > maxPopulation)
+            if (Population == 0)
+                Population = 100;
+
+            calcPercent = Population * 0.05;
+
+            if (Status != "В порядке")
+                Status = "В порядке";
+
+            if (Population > maxPopulation && Gold > 5000)
             {
+                Gold += (int)calcPercent;
                 Population = maxPopulation;
                 Status = "Процветает";
                 Danger = 0;
             }
+            else if (Population < maxPopulation)
+            {
+                Population += (int)calcPercent;
+                Gold += (int)calcPercent;
+            }
         }
+
 
     }
 

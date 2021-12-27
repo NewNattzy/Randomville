@@ -6,15 +6,16 @@ namespace GameObjectManagment
     public static class LocationManagment
     {
 
-        static Random random = new Random();
+        private static Random random = new Random();
 
-        static string libraryName = "Library\\Name.txt";
-        static string libraryLandscape = "Library\\Landscape.txt";
-        static string libraryWeather = "Library\\Weather.txt";
+        // TODO: Завязать генерацию на БД, этот мусор удалить
+        private static readonly string libraryName = "Library\\Name.txt";
+        private static readonly string libraryLandscape = "Library\\Landscape.txt";
+        private static readonly string libraryWeather = "Library\\Weather.txt";
 
-        static int countLineInName = File.ReadAllLines(libraryName).Length;
-        static int countLineInLandscape = File.ReadAllLines(libraryLandscape).Length;
-        static int countLineInWeather = File.ReadAllLines(libraryWeather).Length;
+        private static readonly int countLineInName = File.ReadAllLines(libraryName).Length;
+        private static readonly int countLineInLandscape = File.ReadAllLines(libraryLandscape).Length;
+        private static readonly int countLineInWeather = File.ReadAllLines(libraryWeather).Length;
 
         public static City CreateCity()
         {
@@ -25,7 +26,7 @@ namespace GameObjectManagment
             string weather = File.ReadLines(libraryWeather).Skip(random.Next(countLineInWeather)).First();
 
             int danger = random.Next(0, 3);
-            int population = random.Next(0, 2500);
+            int population = random.Next(1000, 2500);
 
             return new City(name, type, landscape, danger, population, weather);
 
@@ -42,8 +43,6 @@ namespace GameObjectManagment
             int danger = 0;
             int population = 0;
 
-
-
             return new Village(name, type, landscape, danger, population, weather);
 
         }
@@ -57,11 +56,8 @@ namespace GameObjectManagment
             string weather = "";
 
             int danger = 0;
-            int population = 0;
 
-
-
-            return new Wilderness(name, type, landscape, danger, population, weather);
+            return new Wilderness(name, type, landscape, danger, weather);
 
         }
 

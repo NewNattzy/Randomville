@@ -2,35 +2,50 @@
 
 namespace GameObjects
 {
-    public class City : Location
+    public class City : Settlement
     {
 
-        private static int maxPopulation = Config.BaseLocationPopulation * 400;
+        private int maxPopulation;
+        private double calcPercent;
 
         public City(string name, string type, string landscape, int danger, int population, string weather)
-            : base (name, type, landscape, danger, population, weather)
+            : base(name, type, landscape, danger, population, weather)
         {
-
+            // TODO: Проверка входных параметров
+            Gold = random.Next(1000, 3000);
+            maxPopulation = Config.BaseLocationPopulation * (random.Next(250, 500));
         }
 
-        public override void Sieged()
-        {
-            Status = "Осажден";
+        public int Gold { get; set; }
 
-            if (Population % 2 == 0 && Population != 0)
-                Population /= 2;
-            else if (Population < 99)
-                Destroyed();
-            else
-            {
-                Population++;
-                Population /= 2;
-            }
+        public int Robbery()
+        {
+            if (Status != "Разграблен")
+                Status = "Разграблен";
+
+            calcPercent = Gold * 0.25;
+            Gold = (int)calcPercent;
+
+            return Gold;
+        }
+
+        public int Besiege()
+        {
+            if (Status != "Осажден")
+                Status = "Осажден";
+
+            calcPercent = Population * 0.3;
+            Population = (int)calcPercent;
+
+            if (Population < 100)
+                Destroy();
 
             Danger = 8;
+
+            return (int)calcPercent;
         }
 
-        public override void Cursed()
+        public override void Curse()
         {
             if (Status != "Проклят")
             {
@@ -40,23 +55,41 @@ namespace GameObjects
 
             Population -= 50 * Danger;
 
-            if (Population <= 0)
-                Destroyed();
+            if (Population < 100)
+                Destroy();
             if (Danger < 10)
                 Danger++;
         }
 
-        public override void Improved()
+
+        public override void Improve()
         {
-            if (Population < maxPopulation)
-                Population += 250;
-            else if (Population > maxPopulation)
-            { 
-                Population = maxPopulation;
-                Status = "Процветает";
-                Danger = 0;
-            }  
+            if (Population == 0)
+                Population = 500;
+
+            calcPercent = Population * 0.1;
+
+            if (Status != "В порядке")
+                Status = "В порядке";
+
+            if (Population >= maxPopulation)
+            {
+                Gold += (int)calcPercent;
+
+                if (Status != "Процветает")
+                {
+                    Status = "Процветает";
+                    Population = maxPopulation;
+                    Danger = 0;
+                }
+            }
+            else if (Population < maxPopulation)
+            {
+                Population += (int)calcPercent;
+                Gold += (int)calcPercent;
+            }
         }
+
 
     }
 
