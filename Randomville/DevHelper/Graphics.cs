@@ -19,5 +19,6 @@ namespace DevHelper
         public static readonly char lowerLeftCorner = Convert.ToChar(200);
         public static readonly char lowerRightCorner = Convert.ToChar(188);
 
+
     }
 }

@@ -11,6 +11,7 @@ namespace GameObjects
         public Village(string name, string type, string landscape, int danger, int population, string weather)
             : base(name, type, landscape, danger, population, weather)
         {
+            // TODO: Проверка входных параметров
             Gold = random.Next(100, 1000);
             maxPopulation = Config.BaseLocationPopulation * (random.Next(10, 50));
         }

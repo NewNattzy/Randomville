@@ -1,7 +1,7 @@
 ﻿namespace GameObjects
 
 {
-
+    [Serializable]
     public abstract class Creature
     {
         public Creature(int basehealth, int basemana, int damage, int level, int exp, int gold)

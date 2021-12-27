@@ -2,15 +2,19 @@
 
 namespace GameObjects
 {
+    [Serializable]
     public class EnemyArmy
     {
+        [NonSerialized]
         private Random random = new Random();
 
-        public const int MAX_ARMY_COUNT = 100;
+        private const int MAX_ARMY_COUNT = 100;
+
         private List<Enemy> MonsterArmy = new List<Enemy>();
 
         public EnemyArmy(string name)
         {
+            // TODO: Проверка входных параметров
             Name = name;
             UnitCount = 0;
             Gold = random.Next(10, 200);
@@ -21,6 +25,7 @@ namespace GameObjects
         public int Gold { get; set; }
         public int KillScore { get; set; }
         public int DestroyScore { get; set; }
+
         public Enemy this[int index]
         {
             get => MonsterArmy[index];

@@ -4,6 +4,8 @@ using GameObjects;
 using GameObjectManagment;
 using Storage;
 using System.Linq;
+using System.Xml.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ConsoleGame
 {
@@ -26,9 +28,25 @@ namespace ConsoleGame
         {
             GamePreparation();
 
-            WorldMap worldMap = new WorldMap();
-            worldMap.CreateMap();
-            worldMap.ShowMap();
+            //WorldMap worldMap = new WorldMap();
+            //worldMap.CreateMap();
+            //worldMap.ShowMap();
+
+
+            EnemyArmy army = EnemyManagment.CreateArmyEnemy("Нежить", 100);
+
+            var binFormatter = new BinaryFormatter();
+
+            using(var file = new FileStream("Save.bin", FileMode.OpenOrCreate))
+            {
+                binFormatter.Serialize(file, army);
+            };
+
+            using (var file = new FileStream("Save.bin", FileMode.OpenOrCreate))
+            {
+                var newArmy = binFormatter.Deserialize(file);
+                army = (EnemyArmy)newArmy;
+            };
 
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();

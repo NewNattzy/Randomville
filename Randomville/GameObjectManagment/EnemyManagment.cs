@@ -37,10 +37,19 @@ namespace GameObjectManagment
 
             EnemyArmy army = new EnemyArmy($"Армия: {type} ({count})");
 
-                for (int i = 0; i < count; i++)
-                    army.Add(CreateSingleEnemy($"{type}"));
+            for (int i = 0; i < count; i++)
+                army.Add(CreateSingleEnemy($"{type}"));
 
-                return army;
+            return army;
+        }
+
+        // TODO: Должно ли это быть в классе EnemyArmy?
+        public static void ShowStructureArmy(EnemyArmy army)
+        {
+            for (int i = 0; i < army.UnitCount; i++)
+            {
+                Console.WriteLine($"{army[i].Rank} армии {army.Name}, здоровье: {army[i].Health}");
+            }
         }
 
         public static void BesiegeCity(EnemyArmy army, City city)
