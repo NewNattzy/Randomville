@@ -6,7 +6,7 @@ namespace GameObjectManagment
     public static class LocationManagment
     {
 
-        private static Random random = new Random();
+        private static readonly Random random = new();
 
         // TODO: Завязать генерацию на БД, этот мусор удалить
         private static readonly string libraryName = "Library\\Name.txt";
@@ -54,10 +54,10 @@ namespace GameObjectManagment
             string type = "";
             string landscape = "";
             string weather = "";
-
+            string status = "";
             int danger = 0;
 
-            return new Wilderness(name, type, landscape, danger, weather);
+            return new Wilderness(name, type, landscape, status, danger, weather);
 
         }
 

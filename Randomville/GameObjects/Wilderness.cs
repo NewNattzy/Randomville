@@ -9,13 +9,14 @@ namespace GameObjects
         private double calcPersent;
         private const int MAX_RESOURCES = 100;
 
-        public Wilderness(string name, string type, string landscape, int danger, string weather)
+        public Wilderness(string name, string type, string landscape, string status, int danger, string weather)
         {
             // TODO: Проверка входных параметров
             Name = name;
             Type = type;
             Landscape = landscape;
             Danger = danger;
+            Status = status;
             Weather = weather;
         }
 

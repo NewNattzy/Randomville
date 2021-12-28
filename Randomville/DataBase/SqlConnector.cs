@@ -1,46 +1,35 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace Storage
+namespace DataBase
 {
     public static class SqlConnector
     {
 
-        // Нихрена пока не работает, не выкупаю в чем проблема
-        private static string connectionString = "Server=NATTZY\\SQLEXPRESS;Database=Randomville;Trusted_Connection=True";
+        private static readonly string connectionString = "Server=NATTZY\\SQLEXPRESS;Database=Randomville;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True";
 
-        public static void GetCollection()
+        public static List<object> GetCollection(string sqlExpression)
         {
 
-            string sqlExpression = "SELECT * FROM Enemies WHERE ID = 1";//command;
+            List<object> gameObject = new List<object>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
+                connection.Open();
                 SqlCommand sqlCommand = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
 
-
-                if (reader.HasRows)
+                if (reader.Read())
                 {
-
-                    object id = reader.GetValue(0);
-                    object type = reader.GetValue(1);
-                    object health = reader.GetValue(2);
-                    object mana = reader.GetValue(3);
-                    object damage = reader.GetValue(4);
-                    object level = reader.GetValue(5);
-                    object exp = reader.GetValue(6);
-                    object gold = reader.GetValue(7);
-                    object fraction = reader.GetValue(8);
-                    object rank = reader.GetValue(9);
-
-
-                    Console.WriteLine($"{type} \t{health} \t{mana}");
-
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        gameObject.Add(reader.GetValue(i));
+                    }
                 }
+
                 connection.Close();
             }
 
+            return gameObject;
         }
 
     }

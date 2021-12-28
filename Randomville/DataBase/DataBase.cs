@@ -7,14 +7,13 @@ namespace Storage
     public class DataBase : DbContext
     {
 
-        public DataBase() : base("DefaultConnection")
+        public DataBase()
+            : base("DefaultConnection")
         {
 
         }
 
-        public DbSet<Enemy> Enemies { get; set; }
-
-        public DbContext Contextr { get; set; }
+        // public DbSet<Enemy> Enemies { get; set; }
 
     }
 

@@ -2,15 +2,10 @@
 using GameConfig;
 using GameObjects;
 using GameObjectManagment;
-using Storage;
-using System.Linq;
-using System.Xml.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ConsoleGame
 {
-
-    class Program
+    internal class Program
     {
 
         public static void StartGame(Player player)
@@ -24,29 +19,21 @@ namespace ConsoleGame
             Config.SettingValues();
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            if (args is null) throw new ArgumentNullException(nameof(args));
+
+
             GamePreparation();
 
-            //WorldMap worldMap = new WorldMap();
-            //worldMap.CreateMap();
-            //worldMap.ShowMap();
+
+            EnemyArmy armyUndead = EnemyManagment.CreateArmyEnemy("Нежить", 70);
+            EnemyManagment.ShowStructureArmy(armyUndead);
 
 
-            EnemyArmy army = EnemyManagment.CreateArmyEnemy("Нежить", 100);
+            EnemyArmy armyHorde = EnemyManagment.CreateArmyEnemy("Орда", 90);
+            EnemyManagment.ShowStructureArmy(armyHorde);
 
-            var binFormatter = new BinaryFormatter();
-
-            using(var file = new FileStream("Save.bin", FileMode.OpenOrCreate))
-            {
-                binFormatter.Serialize(file, army);
-            };
-
-            using (var file = new FileStream("Save.bin", FileMode.OpenOrCreate))
-            {
-                var newArmy = binFormatter.Deserialize(file);
-                army = (EnemyArmy)newArmy;
-            };
 
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();
