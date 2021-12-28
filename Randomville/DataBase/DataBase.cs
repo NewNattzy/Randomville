@@ -1,9 +1,10 @@
-﻿using GameObjects;
+﻿using System;
 using System.Data.Entity;
 
 
 namespace Storage
 {
+
     public class DataBase : DbContext
     {
 

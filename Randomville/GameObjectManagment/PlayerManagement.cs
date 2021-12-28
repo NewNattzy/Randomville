@@ -1,9 +1,11 @@
-﻿using GameObjects;
-using System.Text.RegularExpressions;
+﻿using System;
+using GameObjects;
 using DevHelper;
+
 
 namespace GameObjectManagment
 {
+
     public static class PlayerManagement
     {
         #nullable disable
@@ -136,6 +138,7 @@ namespace GameObjectManagment
 
         public static void ShowPlayerInfo(Player player)
         {
+
             Console.WriteLine("Характеристики персонажа:");
             Console.WriteLine($"Имя           : {player.Name}");
             Console.WriteLine($"Класс         : {player.Special}");
@@ -145,6 +148,7 @@ namespace GameObjectManagment
             Console.WriteLine($"Урон          : {player.Damage}");
             Console.WriteLine($"Опыт          : {player.Exp}");
             Console.WriteLine($"Золото        : {player.Gold}\n");
+
         }
 
 

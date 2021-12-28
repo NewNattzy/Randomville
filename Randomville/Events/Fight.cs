@@ -1,14 +1,17 @@
 ﻿using System;
 using GameObjects;
 
+
 namespace Events
 {
+
     public class Fight
     {
 
         // TODO: Использовать делегаты для запуска n-функций и для чего-нибудь еще
         public static void ArmyFight(EnemyArmy blueArmy, EnemyArmy redArmy)
         {
+
             if (blueArmy == null)
                 throw new ArgumentNullException(nameof(blueArmy));
             else if (redArmy == null)
@@ -53,6 +56,5 @@ namespace Events
         }
 
     }
-
 
 }

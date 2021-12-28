@@ -1,7 +1,9 @@
 ﻿using System;
 
+
 namespace DevHelper
 {
+
     public static class Graphics
     {
 
@@ -11,8 +13,10 @@ namespace DevHelper
         public static readonly char enemyArmy = Convert.ToChar(2);
         public static readonly char player = Convert.ToChar(1);
 
+
         public static readonly char verticalWall = Convert.ToChar(205);
         public static readonly char horizontalWall = Convert.ToChar(186);
+
 
         public static readonly char upperLeftCorner = Convert.ToChar(201);
         public static readonly char upperRightCorner = Convert.ToChar(187);

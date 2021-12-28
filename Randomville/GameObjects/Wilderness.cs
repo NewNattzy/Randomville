@@ -1,8 +1,10 @@
-﻿using GameConfig;
+﻿using System;
 using Interfaces;
+
 
 namespace GameObjects
 {
+
     public class Wilderness : ILocation
     {
 
@@ -28,8 +30,10 @@ namespace GameObjects
         public int Danger { get; set; }
         public int Resources { get; set; }
 
+
         public void Curse()
         {
+
             if (Status != "Проклят")
             {
                 Status = "Проклят";
@@ -38,15 +42,19 @@ namespace GameObjects
 
             calcPersent = Resources * 0.2;
             Resources -= (int)calcPersent;
+
         }
+
 
         public void Improve()
         {
+
             if (Resources <= 0)
                 Resources = 10;
 
             if (Status != "В порядке")
                 Status = "В порядке";
+
 
             if (Resources > 0 && Resources < MAX_RESOURCES)
                 calcPersent = Resources * 0.2;
@@ -55,12 +63,15 @@ namespace GameObjects
                 Resources = MAX_RESOURCES;
                 Status = "Процветает";
             }
+
         }
+
 
         public void Destroy()
         {
             throw new NotImplementedException();
         }
+
     }
 
 }

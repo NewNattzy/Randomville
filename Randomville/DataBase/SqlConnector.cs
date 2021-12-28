@@ -1,7 +1,10 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System;
+using Microsoft.Data.SqlClient;
+
 
 namespace DataBase
 {
+
     public static class SqlConnector
     {
 
@@ -14,9 +17,11 @@ namespace DataBase
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
+
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = sqlCommand.ExecuteReader();
+
 
                 if (reader.Read())
                 {
@@ -26,11 +31,14 @@ namespace DataBase
                     }
                 }
 
+
                 connection.Close();
+
             }
 
             return gameObject;
         }
 
     }
+
 }

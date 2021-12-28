@@ -4,8 +4,10 @@ using GameObjects;
 using Events;
 using GameObjectManagment;
 
+
 namespace ConsoleGame
 {
+
     internal class Program
     {
 
@@ -14,22 +16,24 @@ namespace ConsoleGame
             PlayerManagement.ShowPlayerInfo(player);
         }
 
+
         public static void GamePreparation()
         {
             // TODO: Методы необходимые для старта игры, подготовка конфигов, карты, первых объектов
             Config.SettingValues();
         }
 
+
         private static void Main(string[] args)
         {
-            if (args is null) throw new ArgumentNullException(nameof(args));
 
+            if (args is null) throw new ArgumentNullException(nameof(args));
 
             GamePreparation();
             EnemyArmy armyUndead = new EnemyArmy();
             EnemyArmy armyHorde = new EnemyArmy();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 armyUndead = EnemyManagment.CreateArmyEnemy("Нежить", 90);
                 armyHorde = EnemyManagment.CreateArmyEnemy("Орда", 90);
@@ -38,6 +42,7 @@ namespace ConsoleGame
 
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();
+
         }
 
     }

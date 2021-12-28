@@ -1,10 +1,13 @@
 ﻿using System;
 
+
 namespace GameObjects
 {
+
     [Serializable]
     public class EnemyArmy
     {
+
         [NonSerialized]
         private readonly Random random = new Random();
 
@@ -12,10 +15,9 @@ namespace GameObjects
 
         private List<Enemy> MonsterArmy = new List<Enemy>();
 
-        public EnemyArmy()
-        {
 
-        }
+        public EnemyArmy() {}
+
 
         public EnemyArmy(string name)
         {
@@ -25,11 +27,13 @@ namespace GameObjects
             Gold = random.Next(10, 200);
         }
 
+
         public string? Name { get; set; }
         public int UnitCount { get; set; }
         public int Gold { get; set; }
         public int KillScore { get; set; }
         public int DestroyScore { get; set; }
+
 
         public Enemy this[int index]
         {
@@ -37,8 +41,10 @@ namespace GameObjects
             set => MonsterArmy[index] = value;
         }
 
+
         public void Add(Enemy enemy)
         {
+
             if (enemy == null)
                 throw new ArgumentNullException(nameof(enemy));
 
@@ -49,6 +55,7 @@ namespace GameObjects
             }
                 
         }
+
 
         public void Remove(Enemy enemy)
         {

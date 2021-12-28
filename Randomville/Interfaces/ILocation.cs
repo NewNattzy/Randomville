@@ -1,7 +1,9 @@
-﻿using GameObjects;
+﻿using System;
+
 
 namespace Interfaces
 {
+
     public interface ILocation
     {
 

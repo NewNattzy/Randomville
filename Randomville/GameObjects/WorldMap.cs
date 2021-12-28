@@ -1,8 +1,11 @@
-﻿using GameConfig;
+﻿using System;
+using GameConfig;
 using DevHelper;
+
 
 namespace GameObjects
 {
+
     public class WorldMap
     {
 
@@ -10,16 +13,20 @@ namespace GameObjects
         private int auxiliaryLength = maxLendthSide - 1;
         private static char[,] mapMarkup = new char[maxLendthSide, maxLendthSide];
 
+
         public WorldMap()
         {
 
         }
 
+
         public void CreateMap()
         {
+
             for (var i = 0; i < maxLendthSide; i++)
                 for (var j = 0; j < maxLendthSide; j++)
                     mapMarkup[i, j] = Convert.ToChar(500);
+
 
             // Отрисовка стен карты
             for (var i = 0; i < maxLendthSide; i++)
@@ -28,11 +35,13 @@ namespace GameObjects
                 mapMarkup[i, 0] = Graphics.verticalWall;
             }
 
+
             for (var i = 0; i < maxLendthSide; i++)
             {
                 mapMarkup[auxiliaryLength, i] = Graphics.horizontalWall;
                 mapMarkup[i, auxiliaryLength] = Graphics.horizontalWall;
             }
+
 
             // Отрисовка углов карты
             mapMarkup[0, 0] = Graphics.upperLeftCorner;
@@ -41,6 +50,7 @@ namespace GameObjects
             mapMarkup[auxiliaryLength, auxiliaryLength] = Graphics.lowerRightCorner;
 
         }
+
 
         public void ShowMap()
         {
@@ -53,6 +63,7 @@ namespace GameObjects
             }
                 
         }
+
 
     }
 

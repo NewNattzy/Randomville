@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace GameObjects
 {
@@ -9,6 +11,7 @@ namespace GameObjects
         [Required(ErrorMessage = "Оракул: Ты все еще не выбрал класс")]
         public string Special;
 
+
         internal static int newLevelExp = 500;
 
         public Player(string name, int basehealth, int basemana, int damage, int level, int exp, int gold, string special)
@@ -18,6 +21,7 @@ namespace GameObjects
             Name = name;
             Special = special;
         }
+
 
         [Required(ErrorMessage = "Оракул: Ты ввел недопустимое имя")]
         [StringLength(10, MinimumLength = 3)]

@@ -3,8 +3,10 @@ using GameObjects;
 using GameObjectManagment;
 using System.Xml.Serialization;
 
+
 namespace Events
 {
+
     public static class Save
     {
 
@@ -15,10 +17,12 @@ namespace Events
 
             var xmlFormatter = new XmlSerializer(typeof(EnemyArmy));
 
+
             using (var file = new FileStream("Save.xml", FileMode.OpenOrCreate))
             {
                 xmlFormatter.Serialize(file, army);
             };
+
 
             using (var file = new FileStream("Save.xml", FileMode.OpenOrCreate))
             {
@@ -26,7 +30,9 @@ namespace Events
                 if (newArmy != null)
                     army = (EnemyArmy)newArmy;
             };
+
         }
 
     }
+
 }

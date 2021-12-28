@@ -1,7 +1,10 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
+
 
 namespace GameObjects
 {
+
     public abstract class Settlement : ILocation
     {
 
@@ -37,7 +40,9 @@ namespace GameObjects
             Population = 0;
             Danger = 10;
         }
+
         public abstract void Curse();
+
         public abstract void Improve();
       
     }

@@ -1,8 +1,9 @@
-﻿using GameConfig;
-using GameObjects;
+﻿using System;
+
 
 namespace GameObjectManagment
 {
+
     public static class WorldMapManagment
     {
 
