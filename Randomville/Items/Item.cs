@@ -11,12 +11,17 @@
         public bool Consumable { get; set; }
         public string Description { get; set; }
 
-        public Item()
+        public Item(int id, string name, string type, int cost, bool consumable, string description)
         {
-            // 
+            ID = id;
+            Name = name;
+            Type = type;
+            Cost = cost;
+            Consumable = consumable;
+            Description = description;
         }
 
-        public virtual ICollection<Item> Items { get; set; }
+        //public virtual ICollection<Item> Items { get; set; }
 
     }
 

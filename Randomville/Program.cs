@@ -1,16 +1,12 @@
 ﻿using System;
 using GameConfig;
 using GameObjects;
+using Events;
 using GameObjectManagment;
-using Storage;
-using System.Linq;
-using System.Xml.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ConsoleGame
 {
-
-    class Program
+    internal class Program
     {
 
         public static void StartGame(Player player)
@@ -24,29 +20,21 @@ namespace ConsoleGame
             Config.SettingValues();
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            if (args is null) throw new ArgumentNullException(nameof(args));
+
+
             GamePreparation();
+            EnemyArmy armyUndead = new EnemyArmy();
+            EnemyArmy armyHorde = new EnemyArmy();
 
-            //WorldMap worldMap = new WorldMap();
-            //worldMap.CreateMap();
-            //worldMap.ShowMap();
-
-
-            EnemyArmy army = EnemyManagment.CreateArmyEnemy("Нежить", 100);
-
-            var binFormatter = new BinaryFormatter();
-
-            using(var file = new FileStream("Save.bin", FileMode.OpenOrCreate))
+            for (int i = 0; i < 100; i++)
             {
-                binFormatter.Serialize(file, army);
-            };
-
-            using (var file = new FileStream("Save.bin", FileMode.OpenOrCreate))
-            {
-                var newArmy = binFormatter.Deserialize(file);
-                army = (EnemyArmy)newArmy;
-            };
+                armyUndead = EnemyManagment.CreateArmyEnemy("Нежить", 90);
+                armyHorde = EnemyManagment.CreateArmyEnemy("Орда", 90);
+                Fight.ArmyFight(armyHorde, armyUndead);
+            }
 
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();

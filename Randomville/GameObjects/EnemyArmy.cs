@@ -6,11 +6,16 @@ namespace GameObjects
     public class EnemyArmy
     {
         [NonSerialized]
-        private Random random = new Random();
+        private readonly Random random = new Random();
 
         private const int MAX_ARMY_COUNT = 100;
 
         private List<Enemy> MonsterArmy = new List<Enemy>();
+
+        public EnemyArmy()
+        {
+
+        }
 
         public EnemyArmy(string name)
         {
@@ -20,7 +25,7 @@ namespace GameObjects
             Gold = random.Next(10, 200);
         }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int UnitCount { get; set; }
         public int Gold { get; set; }
         public int KillScore { get; set; }
