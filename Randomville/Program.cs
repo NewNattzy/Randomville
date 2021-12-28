@@ -1,6 +1,7 @@
 ﻿using System;
 using GameConfig;
 using GameObjects;
+using Events;
 using GameObjectManagment;
 
 namespace ConsoleGame
@@ -25,15 +26,15 @@ namespace ConsoleGame
 
 
             GamePreparation();
+            EnemyArmy armyUndead = new EnemyArmy();
+            EnemyArmy armyHorde = new EnemyArmy();
 
-
-            EnemyArmy armyUndead = EnemyManagment.CreateArmyEnemy("Нежить", 70);
-            EnemyManagment.ShowStructureArmy(armyUndead);
-
-
-            EnemyArmy armyHorde = EnemyManagment.CreateArmyEnemy("Орда", 90);
-            EnemyManagment.ShowStructureArmy(armyHorde);
-
+            for (int i = 0; i < 100; i++)
+            {
+                armyUndead = EnemyManagment.CreateArmyEnemy("Нежить", 90);
+                armyHorde = EnemyManagment.CreateArmyEnemy("Орда", 90);
+                Fight.ArmyFight(armyHorde, armyUndead);
+            }
 
             Console.WriteLine("\nКонец игры");
             Console.ReadKey();

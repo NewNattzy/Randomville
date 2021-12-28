@@ -7,10 +7,6 @@ namespace GameObjectManagment
     public static class EnemyManagment
     {
 
-
-        private static Random random = new Random();
-
-
         public static Enemy CreateSingleEnemy(string type, string rank)
         {
             if (string.IsNullOrEmpty(type))
@@ -34,9 +30,7 @@ namespace GameObjectManagment
         public static EnemyArmy CreateArmyEnemy(string type, int count)
         {
             if (string.IsNullOrEmpty(type))
-            {
                 throw new ArgumentNullException(nameof(type));
-            }
 
             // Создаем саму армию и добавляем ей полководца
             EnemyArmy army = new EnemyArmy($"Армия: {type} ({count})");
