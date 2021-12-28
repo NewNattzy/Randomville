@@ -18,7 +18,7 @@ namespace GameObjectManagment
 
             string sqlQuery = $"SELECT * FROM Names WHERE Fraction='{type}' ORDER BY NEWID()";
             List<object> enemyName = SqlConnector.GetCollection(sqlQuery);
-            string name = (string)enemyName[1]+" "+(string)enemyName[2];
+            string name = (string)enemyName[1] + " " + (string)enemyName[2];
 
 
             sqlQuery = $"SELECT * FROM Enemies WHERE Fraction = '{type}' AND Rank = '{rank}' ORDER BY NEWID()";
@@ -50,7 +50,7 @@ namespace GameObjectManagment
 
 
             // Заполняем армию в соотношении rankCount
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < rankCount.Length; i++)
             {
                 for(int j = 0; j < rankCount[i]; j++)
                 {
