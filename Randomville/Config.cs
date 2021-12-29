@@ -22,7 +22,7 @@ namespace GameConfig
 
         public static void SettingValues()
         {
-            MaxMapSize = 200;
+            MaxMapSize = 100;
             GameObjectsLimit = 100;
             BaseLocationPopulation = 10;
             CreatureMaxLevel = 100;

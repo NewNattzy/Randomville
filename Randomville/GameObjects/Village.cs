@@ -11,8 +11,8 @@ namespace GameObjects
         private int maxPopulation;
         private double calcPercent;
 
-        public Village(string name, string type, string landscape, int danger, int population, string weather)
-            : base(name, type, landscape, danger, population, weather)
+        public Village(string name, string type, string landscape, int danger, int population, string weather, int xCord, int yCord)
+            : base(name, type, landscape, danger, population, weather, xCord, yCord)
         {
             // TODO: Проверка входных параметров
             Gold = random.Next(100, 1000);

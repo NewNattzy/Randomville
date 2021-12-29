@@ -9,62 +9,78 @@ namespace GameObjects
     public class WorldMap
     {
 
-        private static int maxLendthSide = Config.MaxMapSize / 10;
-        private int auxiliaryLength = maxLendthSide - 1;
-        private static char[,] mapMarkup = new char[maxLendthSide, maxLendthSide];
+        private static int verticalLendth = Config.MaxMapSize / 5;
+        private static int horizontalLendth = Config.MaxMapSize;
+        private static char[,] mapMarkup = new char[verticalLendth, horizontalLendth];
 
-
-        public WorldMap()
-        {
-
-        }
-
+        public WorldMap() { }
 
         public void CreateMap()
         {
 
-            for (var i = 0; i < maxLendthSide; i++)
-                for (var j = 0; j < maxLendthSide; j++)
-                    mapMarkup[i, j] = Convert.ToChar(500);
+            // Отрисовка карты
+            for (var i = 0; i < verticalLendth - 1; i++)
+                for (var j = 0; j < horizontalLendth - 1; j++)
+                    mapMarkup[i, j] = Graphics.landscape;
+                    
 
-
-            // Отрисовка стен карты
-            for (var i = 0; i < maxLendthSide; i++)
+            // Отрисовка стен
+            for (var i = 0; i < horizontalLendth - 1; i++)
             {
-                mapMarkup[0, i] = Graphics.verticalWall;
+                mapMarkup[0, i] = Graphics.horizontalWall;
+                mapMarkup[verticalLendth - 1, i] = Graphics.horizontalWall;
+            }
+
+            for (var i = 0; i < verticalLendth - 1; i++)
+            {
                 mapMarkup[i, 0] = Graphics.verticalWall;
+                mapMarkup[i, horizontalLendth - 1] = Graphics.verticalWall;
             }
 
 
-            for (var i = 0; i < maxLendthSide; i++)
-            {
-                mapMarkup[auxiliaryLength, i] = Graphics.horizontalWall;
-                mapMarkup[i, auxiliaryLength] = Graphics.horizontalWall;
-            }
-
-
-            // Отрисовка углов карты
+            // Отрисовка углов
             mapMarkup[0, 0] = Graphics.upperLeftCorner;
-            mapMarkup[0, auxiliaryLength] = Graphics.lowerLeftCorner;
-            mapMarkup[auxiliaryLength, 0] = Graphics.upperRightCorner;
-            mapMarkup[auxiliaryLength, auxiliaryLength] = Graphics.lowerRightCorner;
+            mapMarkup[0, horizontalLendth - 1] = Graphics.lowerLeftCorner;
+            mapMarkup[verticalLendth - 1, 0] = Graphics.upperRightCorner;
+            mapMarkup[verticalLendth - 1, horizontalLendth - 1] = Graphics.lowerRightCorner;
+
+        }
+
+
+        public void PutObject(char objectLabel, out int x, out int y)
+        {
+            Random random = new Random();
+
+            // Тут бы что-нибудь придумать..
+            x = random.Next(1, horizontalLendth-1);
+            y = random.Next(1, verticalLendth-1);
+
+            // Поиск свободного места на карте
+            while (mapMarkup[y, x] != Graphics.landscape)
+            {
+                x = random.Next(1, horizontalLendth-1);
+                y = random.Next(1, verticalLendth-1);
+            }
+
+            mapMarkup[y, x] = objectLabel;
 
         }
 
 
         public void ShowMap()
         {
-
-            for (var i = 0; i < maxLendthSide; i++)
+            Console.Clear();
+            for (var i = 0; i < verticalLendth; i++)
             {    
-                for (var j = 0; j < maxLendthSide; j++)
+                for (var j = 0; j < horizontalLendth; j++)
                     Console.Write(mapMarkup[i, j]);
                 Console.WriteLine();
             }
                 
         }
 
-
     }
 
 }
+
+

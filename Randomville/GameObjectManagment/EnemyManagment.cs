@@ -1,6 +1,7 @@
 ﻿using System;
 using GameObjects;
 using DataBase;
+using DevHelper;
 
 
 namespace GameObjectManagment
@@ -12,6 +13,7 @@ namespace GameObjectManagment
         public static Enemy CreateSingleEnemy(string type, string rank)
         {
 
+            // TODO: Такое себе, надо переписать
             if (string.IsNullOrEmpty(type) || string.IsNullOrEmpty(rank))
                 throw new ArgumentNullException();
 
@@ -32,24 +34,28 @@ namespace GameObjectManagment
         }
 
 
-        public static EnemyArmy CreateArmyEnemy(string type, int count)
+        public static EnemyArmy CreateArmyEnemy(string type, int count, ref WorldMap map)
         {
 
             if (string.IsNullOrEmpty(type))
                 throw new ArgumentNullException(nameof(type));
 
 
-            // Создаем саму армию и добавляем ей полководца
-            EnemyArmy army = new EnemyArmy($"Армия: {type} ({count})");
+            int xCord;
+            int yCord;
+            map.PutObject(Graphics.enemyArmy, out xCord, out yCord);
+
+
+            string name = $"Армия: {type} ({count})";
+            EnemyArmy army = new EnemyArmy(name, xCord, yCord);
             army.Add(CreateSingleEnemy(type, "Полководец"));
 
 
-            // Расчитываем соотношение рангов членов армии
+            // Изменяем процентное соотношение типов воиск в армии
             double[] rankCount = new double[3] {count*0.5, count*0.4, count*0.1};
             List<string> rankList = new List<string>() { "Рядовой", "Солдат", "Сержант"};
 
 
-            // Заполняем армию в соотношении rankCount
             for (int i = 0; i < rankCount.Length; i++)
             {
                 for(int j = 0; j < rankCount[i]; j++)

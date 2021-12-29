@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 
 
 namespace DevHelper
@@ -9,19 +10,22 @@ namespace DevHelper
 
         // Пока так, потом поменяю
         public static readonly char wall = Convert.ToChar(8);
-        public static readonly char emptyPlace = Convert.ToChar(193);
-        public static readonly char enemyArmy = Convert.ToChar(2);
+        public static readonly char landscape = Convert.ToChar('.'); //2591
+
+
+        public static readonly char enemyArmy = Convert.ToChar('@');
         public static readonly char player = Convert.ToChar(1);
+        public static readonly char city = Convert.ToChar('\u2302');
 
 
-        public static readonly char verticalWall = Convert.ToChar(205);
-        public static readonly char horizontalWall = Convert.ToChar(186);
+        public static readonly char verticalWall = Convert.ToChar('\u2551');
+        public static readonly char horizontalWall = Convert.ToChar('\u2550');
 
 
-        public static readonly char upperLeftCorner = Convert.ToChar(201);
-        public static readonly char upperRightCorner = Convert.ToChar(187);
-        public static readonly char lowerLeftCorner = Convert.ToChar(200);
-        public static readonly char lowerRightCorner = Convert.ToChar(188);
+        public static readonly char upperLeftCorner = Convert.ToChar('\u2554');
+        public static readonly char upperRightCorner = Convert.ToChar('\u255A');
+        public static readonly char lowerLeftCorner = Convert.ToChar('\u2557');
+        public static readonly char lowerRightCorner = Convert.ToChar('\u255D');
 
 
     }

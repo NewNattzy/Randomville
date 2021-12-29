@@ -21,35 +21,39 @@ namespace ConsoleGame
         {
             // TODO: Методы необходимые для старта игры, подготовка конфигов, карты, первых объектов
             Config.SettingValues();
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
         }
 
 
         private static void Main(string[] args)
         {
-
+            
             if (args is null) throw new ArgumentNullException(nameof(args));
+            
 
             GamePreparation();
 
 
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
+            WorldMap map = new WorldMap();
+            map.CreateMap();
 
 
-            EnemyArmy armyUndead = EnemyManagment.CreateArmyEnemy("Нежить", 99);
-            EnemyArmy armyHorde = EnemyManagment.CreateArmyEnemy("Орда", 99);
-
-            Fight.ArmyFight(armyHorde, armyUndead);
-            
-
-            stopWatch.Stop(); // 00:00:00.5: SqlConnector надо исправлять, набыдлокодил
+            City orcCity = LocationManagment.CreateCity(ref map);
+            City necroCity = LocationManagment.CreateCity(ref map);
 
 
-            TimeSpan ts = stopWatch.Elapsed;
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
-            Console.WriteLine("RunTime " + elapsedTime);
+            EnemyArmy orcArmy = EnemyManagment.CreateArmyEnemy("Орда", 60, ref map);
+            EnemyArmy necroArmy = EnemyManagment.CreateArmyEnemy("Нежить", 90, ref map);
+
+
+            map.ShowMap();
+
+
+            Console.WriteLine($"Город Орков {orcCity.Name} X CORD: {orcCity.XCord} | Y CORD: {orcCity.YCord}");
+            Console.WriteLine($"Город Нежити {necroCity.Name} X CORD: {necroCity.XCord} | Y CORD: {necroCity.YCord}");
+
+            Console.WriteLine($"{orcArmy.Name} X CORD: {orcArmy.XCord} | Y CORD: {orcArmy.YCord}");
+            Console.WriteLine($"{necroArmy.Name} X CORD: {necroArmy.XCord} | Y CORD: {necroArmy.YCord}");
 
 
             Console.WriteLine("\nКонец игры");
