@@ -1,7 +1,10 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
+
 
 namespace DevHelper
 {
+
     public static class Helper
     {
 
@@ -12,4 +15,5 @@ namespace DevHelper
         }
 
     }
+
 }

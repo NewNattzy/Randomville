@@ -1,14 +1,18 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
+
 
 namespace GameObjects
 {
+
     public abstract class Settlement : ILocation
     {
 
         internal static int locationCount = 0;
         private protected Random random = new Random();
+        private protected Dictionary<char, int> cordOnMap = new Dictionary<char,int>();
 
-        public Settlement(string name, string type, string landscape, int danger, int population, string weather)
+        public Settlement(string name, string type, string landscape, int danger, int population, string weather, int xCord, int yCord)
         {
             locationCount++;
             Status = "В порядке";
@@ -19,6 +23,9 @@ namespace GameObjects
             Weather = weather;
             Danger = danger;
             Population = population;
+
+            XCord = xCord;
+            YCord = yCord;
         }
 
 
@@ -29,6 +36,9 @@ namespace GameObjects
         public string Status { get; set; }
         public int Danger { get; set; }
         public int Population { get; set; }
+        public int XCord { get; set; }
+        public int YCord { get; set; }
+
 
 
         public void Destroy()
@@ -37,7 +47,9 @@ namespace GameObjects
             Population = 0;
             Danger = 10;
         }
+
         public abstract void Curse();
+
         public abstract void Improve();
       
     }

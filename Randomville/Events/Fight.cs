@@ -1,14 +1,17 @@
 ﻿using System;
 using GameObjects;
 
+
 namespace Events
 {
+
     public class Fight
     {
 
-        // TODO: Использовать делегаты для запуска n-функций и для чего-нибудь еще
-        public static void ArmyFight(EnemyArmy blueArmy, EnemyArmy redArmy)
+        // TODO: Переписать файты армий, добавить еще функционала (пока не занимался особо)
+        public static List<EnemyArmy> ArmyFight(EnemyArmy blueArmy, EnemyArmy redArmy, List<EnemyArmy> armies)
         {
+
             if (blueArmy == null)
                 throw new ArgumentNullException(nameof(blueArmy));
             else if (redArmy == null)
@@ -18,7 +21,6 @@ namespace Events
             int[] blueStats = new int[3];
             int[] redStats = new int[3];
             double percent = 0.055;
-            string? winner;
 
 
             for (int i = 0; i < blueArmy.UnitCount; i++)
@@ -48,17 +50,20 @@ namespace Events
 
             if (blueStats[0] > redStats[0])
             {
-                winner = blueArmy.Name;
-            }
+                Console.WriteLine($"{blueArmy.Name} победила {redArmy.Name}");
+                armies.Remove(redArmy);
+            }    
             else
             {
-                winner = redArmy.Name;
+                Console.WriteLine($"{redArmy.Name} победила {blueArmy.Name}");
+                armies.Remove(blueArmy);
             }
-                
-            Console.WriteLine($"Победила {winner}");
+
+            Thread.Sleep(3000);
+            return armies;
+
         }
 
     }
-
 
 }

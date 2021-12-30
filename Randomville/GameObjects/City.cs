@@ -1,25 +1,32 @@
-﻿using GameConfig;
+﻿using System;
+using GameConfig;
+
 
 namespace GameObjects
 {
+
     public class City : Settlement
     {
 
-        private int maxPopulation;
+        private readonly int maxPopulation;
         private double calcPercent;
 
-        public City(string name, string type, string landscape, int danger, int population, string weather)
-            : base(name, type, landscape, danger, population, weather)
+
+        public City(string name, string type, string landscape, int danger, int population, string weather, int xCord, int yCord)
+            : base(name, type, landscape, danger, population, weather, xCord, yCord)
         {
             // TODO: Проверка входных параметров
             Gold = random.Next(1000, 3000);
             maxPopulation = Config.BaseLocationPopulation * (random.Next(250, 500));
         }
 
+
         public int Gold { get; set; }
+
 
         public int Robbery()
         {
+
             if (Status != "Разграблен")
                 Status = "Разграблен";
 
@@ -27,10 +34,13 @@ namespace GameObjects
             Gold = (int)calcPercent;
 
             return Gold;
+
         }
+
 
         public int Besiege()
         {
+
             if (Status != "Осажден")
                 Status = "Осажден";
 
@@ -43,10 +53,13 @@ namespace GameObjects
             Danger = 8;
 
             return (int)calcPercent;
+
         }
+
 
         public override void Curse()
         {
+
             if (Status != "Проклят")
             {
                 Status = "Проклят";
@@ -59,11 +72,13 @@ namespace GameObjects
                 Destroy();
             if (Danger < 10)
                 Danger++;
+
         }
 
 
         public override void Improve()
         {
+
             if (Population == 0)
                 Population = 500;
 
@@ -71,6 +86,7 @@ namespace GameObjects
 
             if (Status != "В порядке")
                 Status = "В порядке";
+
 
             if (Population >= maxPopulation)
             {
@@ -88,6 +104,7 @@ namespace GameObjects
                 Population += (int)calcPercent;
                 Gold += (int)calcPercent;
             }
+
         }
 
 

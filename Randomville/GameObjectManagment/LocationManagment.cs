@@ -1,4 +1,7 @@
-﻿using GameObjects;
+﻿using System;
+using GameObjects;
+using DevHelper;
+
 
 namespace GameObjectManagment
 {
@@ -17,10 +20,12 @@ namespace GameObjectManagment
         private static readonly int countLineInLandscape = File.ReadAllLines(libraryLandscape).Length;
         private static readonly int countLineInWeather = File.ReadAllLines(libraryWeather).Length;
 
+
         public static City CreateCity()
         {
-
+            // TODO: Пофиксить убогость
             string type = "Город";
+
             string name = File.ReadLines(libraryName).Skip(random.Next(countLineInName)).First();
             string landscape = File.ReadLines(libraryLandscape).Skip(random.Next(countLineInLandscape)).First();
             string weather = File.ReadLines(libraryWeather).Skip(random.Next(countLineInWeather)).First();
@@ -28,7 +33,10 @@ namespace GameObjectManagment
             int danger = random.Next(0, 3);
             int population = random.Next(1000, 2500);
 
-            return new City(name, type, landscape, danger, population, weather);
+
+            WorldMapManagment.PutObject(Graphics.GetPicture("city"), out int xCord, out int yCord);
+
+            return new City(name, type, landscape, danger, population, weather, xCord, yCord);
 
         }
 
@@ -43,7 +51,10 @@ namespace GameObjectManagment
             int danger = 0;
             int population = 0;
 
-            return new Village(name, type, landscape, danger, population, weather);
+            int xCord = 1;
+            int yCord = 2;
+
+            return new Village(name, type, landscape, danger, population, weather, xCord, yCord);
 
         }
 

@@ -1,24 +1,46 @@
 ﻿using System;
 
+
 namespace DevHelper
 {
+
     public static class Graphics
     {
 
-        // Пока так, потом поменяю
-        public static readonly char wall = Convert.ToChar(8);
-        public static readonly char emptyPlace = Convert.ToChar(193);
-        public static readonly char enemyArmy = Convert.ToChar(2);
-        public static readonly char player = Convert.ToChar(1);
+        private static Dictionary<string, char> pictures = new Dictionary<string, char>();
 
-        public static readonly char verticalWall = Convert.ToChar(205);
-        public static readonly char horizontalWall = Convert.ToChar(186);
 
-        public static readonly char upperLeftCorner = Convert.ToChar(201);
-        public static readonly char upperRightCorner = Convert.ToChar(187);
-        public static readonly char lowerLeftCorner = Convert.ToChar(200);
-        public static readonly char lowerRightCorner = Convert.ToChar(188);
+        public static char GetPicture(string name)
+        {
+            foreach (string key in pictures.Keys)
+                if (key == name)
+                    return pictures[key];
 
+            return '0';
+        }
+
+
+        // TODO: Поискать другие варианты для заполнения
+        public static void SetPicture()
+        {
+            pictures.Add("wall", Convert.ToChar(8));
+            pictures.Add("landscape", Convert.ToChar('.'));
+
+            pictures.Add("Нежить", Convert.ToChar('O'));
+            pictures.Add("Орда", Convert.ToChar('N'));
+            pictures.Add("player", Convert.ToChar(1));
+
+            pictures.Add("city", Convert.ToChar('\u2302'));
+
+            pictures.Add("verticalWall", Convert.ToChar('\u2551'));
+            pictures.Add("horizontalWall", Convert.ToChar('\u2550'));
+
+            pictures.Add("upperLeftCorner", Convert.ToChar('\u2554'));
+            pictures.Add("upperRightCorner", Convert.ToChar('\u255A'));
+            pictures.Add("lowerLeftCorner", Convert.ToChar('\u2557'));
+            pictures.Add("lowerRightCorner", Convert.ToChar('\u255D'));
+        }
 
     }
+
 }

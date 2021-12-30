@@ -1,6 +1,9 @@
-﻿namespace GameObjects
+﻿using System;
 
+
+namespace GameObjects
 {
+
     [Serializable]
     public abstract class Creature
     {
@@ -14,6 +17,7 @@
             Exp = exp;
             Gold = gold;
         }
+
 
         public int Health { get; set; }
         public int Mana { get; set; }

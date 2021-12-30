@@ -1,4 +1,7 @@
-﻿namespace GameObjectManagment
+﻿using System;
+
+
+namespace GameObjectManagment
 {
 
     public static class QuestManagment
