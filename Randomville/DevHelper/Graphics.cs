@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 
 
 namespace DevHelper
@@ -8,25 +7,40 @@ namespace DevHelper
     public static class Graphics
     {
 
-        // Пока так, потом поменяю
-        public static readonly char wall = Convert.ToChar(8);
-        public static readonly char landscape = Convert.ToChar('.'); //2591
+        private static Dictionary<string, char> pictures = new Dictionary<string, char>();
 
 
-        public static readonly char enemyArmy = Convert.ToChar('@');
-        public static readonly char player = Convert.ToChar(1);
-        public static readonly char city = Convert.ToChar('\u2302');
+        public static char GetPicture(string name)
+        {
+            foreach (string key in pictures.Keys)
+                if (key == name)
+                    return pictures[key];
+
+            return '0';
+        }
 
 
-        public static readonly char verticalWall = Convert.ToChar('\u2551');
-        public static readonly char horizontalWall = Convert.ToChar('\u2550');
+        // TODO: Поискать другие варианты для заполнения
+        public static void SetPicture()
+        {
+            pictures.Add("wall", Convert.ToChar(8));
+            pictures.Add("landscape", Convert.ToChar('.'));
 
+            pictures.Add("Нежить", Convert.ToChar('O'));
+            pictures.Add("Орда", Convert.ToChar('N'));
+            pictures.Add("player", Convert.ToChar(1));
 
-        public static readonly char upperLeftCorner = Convert.ToChar('\u2554');
-        public static readonly char upperRightCorner = Convert.ToChar('\u255A');
-        public static readonly char lowerLeftCorner = Convert.ToChar('\u2557');
-        public static readonly char lowerRightCorner = Convert.ToChar('\u255D');
+            pictures.Add("city", Convert.ToChar('\u2302'));
 
+            pictures.Add("verticalWall", Convert.ToChar('\u2551'));
+            pictures.Add("horizontalWall", Convert.ToChar('\u2550'));
+
+            pictures.Add("upperLeftCorner", Convert.ToChar('\u2554'));
+            pictures.Add("upperRightCorner", Convert.ToChar('\u255A'));
+            pictures.Add("lowerLeftCorner", Convert.ToChar('\u2557'));
+            pictures.Add("lowerRightCorner", Convert.ToChar('\u255D'));
+        }
 
     }
+
 }

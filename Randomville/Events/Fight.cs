@@ -8,8 +8,8 @@ namespace Events
     public class Fight
     {
 
-        // TODO: Использовать делегаты для запуска n-функций и для чего-нибудь еще
-        public static void ArmyFight(EnemyArmy blueArmy, EnemyArmy redArmy)
+        // TODO: Переписать файты армий, добавить еще функционала (пока не занимался особо)
+        public static List<EnemyArmy> ArmyFight(EnemyArmy blueArmy, EnemyArmy redArmy, List<EnemyArmy> armies)
         {
 
             if (blueArmy == null)
@@ -49,9 +49,18 @@ namespace Events
 
 
             if (blueStats[0] > redStats[0])
-                Console.WriteLine($"Победила {blueArmy.Name}");
+            {
+                Console.WriteLine($"{blueArmy.Name} победила {redArmy.Name}");
+                armies.Remove(redArmy);
+            }    
             else
-                Console.WriteLine($"Победила {redArmy.Name}");
+            {
+                Console.WriteLine($"{redArmy.Name} победила {blueArmy.Name}");
+                armies.Remove(blueArmy);
+            }
+
+            Thread.Sleep(3000);
+            return armies;
 
         }
 

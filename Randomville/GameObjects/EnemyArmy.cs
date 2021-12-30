@@ -4,7 +4,6 @@
 namespace GameObjects
 {
 
-    [Serializable]
     public class EnemyArmy
     {
 
@@ -16,13 +15,12 @@ namespace GameObjects
         private List<Enemy> MonsterArmy = new List<Enemy>();
 
 
-        public EnemyArmy() {}
-
-
-        public EnemyArmy(string name, int xCord, int yCord)
+        public EnemyArmy(string name, string fraction, int xCord, int yCord)
         {
             // TODO: Проверка входных параметров
             Name = name;
+            Fraction = fraction;
+
             UnitCount = 0;
             Gold = random.Next(10, 200);
 
@@ -36,6 +34,8 @@ namespace GameObjects
         public int Gold { get; set; }
         public int KillScore { get; set; }
         public int DestroyScore { get; set; }
+        public string Fraction { get; set; }
+        public char Graphics { get; set; }
         public int XCord { get; set; }
         public int YCord { get; set; }
 
@@ -67,6 +67,19 @@ namespace GameObjects
             if (enemy == null)
                 throw new ArgumentNullException(nameof(enemy));
             MonsterArmy.Remove(enemy);
+        }
+
+
+        public void ShowStructureArmy()
+        {
+
+            Console.WriteLine($"{Name}: ");
+            foreach (Enemy enemy in MonsterArmy)
+            {
+                Console.WriteLine($"{enemy.Type} {enemy.Rank} {enemy.Name}, характеристики: ");
+                Console.WriteLine($"HP {enemy.Health}, MP {enemy.Mana}, Damage {enemy.Damage}, Level {enemy.Level}\n");
+            }
+
         }
 
     }
