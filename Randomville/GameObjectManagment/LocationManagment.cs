@@ -34,7 +34,7 @@ namespace GameObjectManagment
             int population = random.Next(1000, 2500);
 
 
-            WorldMapManagment.PutObject(Graphics.GetPicture("city"), out int xCord, out int yCord);
+            WorldMapManagment.PutObject(Graphics.GetPicture("City"), out int xCord, out int yCord);
 
             return new City(name, type, landscape, danger, population, weather, xCord, yCord);
 
@@ -69,6 +69,47 @@ namespace GameObjectManagment
             int danger = 0;
 
             return new Wilderness(name, type, landscape, status, danger, weather);
+
+        }
+
+
+        public static List<City> CheckCityConflict(List<EnemyArmy> armies, List<City> cities)
+        {
+
+            for (int i = 0; i < armies.Count; i++)
+                for (int j = 0; j < cities.Count; j++)
+                    if (armies[i].XCord == cities[j].XCord && armies[i].YCord == cities[j].YCord)
+                        BesiegeCity(armies[i], cities[j]);
+
+            CheckCitiesStatus(cities);
+
+            return cities;
+
+        }
+
+
+        public static List<City> CheckCitiesStatus(List<City> cities)
+        {
+            for (int i = 0; i < cities.Count; i++)
+                if (cities[i].Status == "Уничтожен")
+                {
+                    Console.WriteLine($"Город {cities[i].Name} уничтожен!");
+                    WorldMapManagment.RemoveObject(cities[i].XCord, cities[i].YCord);
+                    cities.RemoveAt(i);
+                }
+
+            return cities;
+        }
+
+
+        public static void BesiegeCity(EnemyArmy army, City city)
+        {
+
+            army.KillScore += city.Besiege();
+
+            if (city.Status == "Уничтожен")
+                army.DestroyScore++;
+            army.Gold += city.Gold;
 
         }
 

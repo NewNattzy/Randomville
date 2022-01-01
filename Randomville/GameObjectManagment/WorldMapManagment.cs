@@ -3,6 +3,7 @@ using GameConfig;
 using DevHelper;
 using GameObjects;
 using Events;
+using GameObjectManagment;
 
 
 namespace GameObjectManagment
@@ -24,28 +25,28 @@ namespace GameObjectManagment
             // Отрисовка карты
             for (int i = 0; i < verticalLendth - 1; i++)
                 for (int j = 0; j < horizontalLendth - 1; j++)
-                    mapMarkup[i, j] = Graphics.GetPicture("landscape");
+                    mapMarkup[i, j] = Graphics.GetPicture("Landscape");
 
 
             // Отрисовка стен
             for (int i = 0; i < horizontalLendth - 1; i++)
             {
-                mapMarkup[0, i] = Graphics.GetPicture("horizontalWall");
-                mapMarkup[verticalLendth - 1, i] = Graphics.GetPicture("horizontalWall");
+                mapMarkup[0, i] = Graphics.GetPicture("HorizontalWall");
+                mapMarkup[verticalLendth - 1, i] = Graphics.GetPicture("HorizontalWall");
             }
 
             for (int i = 0; i < verticalLendth - 1; i++)
             {
-                mapMarkup[i, 0] = Graphics.GetPicture("verticalWall");
-                mapMarkup[i, horizontalLendth - 1] = Graphics.GetPicture("verticalWall");
+                mapMarkup[i, 0] = Graphics.GetPicture("VerticalWall");
+                mapMarkup[i, horizontalLendth - 1] = Graphics.GetPicture("VerticalWall");
             }
 
 
             // Отрисовка углов
-            mapMarkup[0, 0] = Graphics.GetPicture("upperLeftCorner");
-            mapMarkup[0, horizontalLendth - 1] = Graphics.GetPicture("lowerLeftCorner");
-            mapMarkup[verticalLendth - 1, 0] = Graphics.GetPicture("upperRightCorner");
-            mapMarkup[verticalLendth - 1, horizontalLendth - 1] = Graphics.GetPicture("lowerRightCorner");
+            mapMarkup[0, 0] = Graphics.GetPicture("UpperLeftCorner");
+            mapMarkup[0, horizontalLendth - 1] = Graphics.GetPicture("LowerLeftCorner");
+            mapMarkup[verticalLendth - 1, 0] = Graphics.GetPicture("UpperRightCorner");
+            mapMarkup[verticalLendth - 1, horizontalLendth - 1] = Graphics.GetPicture("LowerRightCorner");
 
         }
 
@@ -56,7 +57,7 @@ namespace GameObjectManagment
             x = 0;
             y = 0;
 
-            while (mapMarkup[y, x] != Graphics.GetPicture("landscape"))
+            while (mapMarkup[y, x] != Graphics.GetPicture("Landscape"))
             {
                 x = random.Next(1, horizontalLendth-1);
                 y = random.Next(1, verticalLendth-1);
@@ -73,8 +74,8 @@ namespace GameObjectManagment
             for(int i = 0; i < armies.Count; i++)
             {
 
-                // Заменяем текущий символ по координате армии на стандартный
-                mapMarkup[armies[i].YCord, armies[i].XCord] = Graphics.GetPicture("landscape");
+                if (mapMarkup[armies[i].YCord, armies[i].XCord] != Graphics.GetPicture("City"))
+                    mapMarkup[armies[i].YCord, armies[i].XCord] = Graphics.GetPicture("Landscape");
 
 
                 armies[i].XCord += random.Next(-1, 2);
@@ -95,7 +96,8 @@ namespace GameObjectManagment
                     armies[i].YCord = 1;
 
 
-                mapMarkup[armies[i].YCord, armies[i].XCord] = armies[i].Graphics;
+                if (mapMarkup[armies[i].YCord, armies[i].XCord] != Graphics.GetPicture("City"))
+                    mapMarkup[armies[i].YCord, armies[i].XCord] = armies[i].Graphics;
 
             }
 
@@ -106,17 +108,22 @@ namespace GameObjectManagment
 
         public static void RemoveObject(int x, int y)
         {
-            mapMarkup[y, x] = Graphics.GetPicture("landscape");
+            mapMarkup[y, x] = Graphics.GetPicture("Landscape");
         }
 
 
         public static void ShowMap()
         {
+
             Console.Clear();
             for (int i = 0; i < verticalLendth; i++)
             {
                 for (int j = 0; j < horizontalLendth; j++)
+                {
+                    Console.ForegroundColor = Graphics.SetColor(mapMarkup[i, j]);
                     Console.Write(mapMarkup[i, j]);
+                }
+
                 Console.WriteLine();
             }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using DataBase;
 
 
 namespace DevHelper
@@ -8,6 +9,7 @@ namespace DevHelper
     {
 
         private static Dictionary<string, char> pictures = new Dictionary<string, char>();
+        private static Dictionary<char, ConsoleColor> colors = new Dictionary<char, ConsoleColor>();
 
 
         public static char GetPicture(string name)
@@ -20,27 +22,35 @@ namespace DevHelper
         }
 
 
-        // TODO: Поискать другие варианты для заполнения
+        // TODO: Переписать вместе с запросами к БД. Уже лучше, но все еще мрак.
         public static void SetPicture()
         {
-            pictures.Add("wall", Convert.ToChar(8));
-            pictures.Add("landscape", Convert.ToChar('.'));
 
-            pictures.Add("Нежить", Convert.ToChar('O'));
-            pictures.Add("Орда", Convert.ToChar('N'));
-            pictures.Add("player", Convert.ToChar(1));
+            for (int i = 1; i < 12; i++)
+            {
+                string sqlQuery = $"SELECT Name, Symbol, Color FROM Graphics WHERE ID={i}";
 
-            pictures.Add("city", Convert.ToChar('\u2302'));
+                List<object> graphics = SqlConnector.GetCollection(sqlQuery);
 
-            pictures.Add("verticalWall", Convert.ToChar('\u2551'));
-            pictures.Add("horizontalWall", Convert.ToChar('\u2550'));
+                pictures.Add((string)graphics[0], Convert.ToChar(graphics[1]));
+                colors.Add(Convert.ToChar(graphics[1]), (ConsoleColor)graphics[2]);
+            }
 
-            pictures.Add("upperLeftCorner", Convert.ToChar('\u2554'));
-            pictures.Add("upperRightCorner", Convert.ToChar('\u255A'));
-            pictures.Add("lowerLeftCorner", Convert.ToChar('\u2557'));
-            pictures.Add("lowerRightCorner", Convert.ToChar('\u255D'));
+        }
+
+
+        public static ConsoleColor SetColor(char mapObject)
+        {
+
+            foreach (char key in colors.Keys)
+                if (key == mapObject)
+                    return colors[key];
+
+            return ConsoleColor.White;
+
         }
 
     }
 
 }
+

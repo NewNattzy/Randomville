@@ -35,7 +35,7 @@ namespace GameObjectManagment
         }
 
 
-        public static EnemyArmy CreateArmyEnemy(string fraction, int count)
+        public static EnemyArmy CreateEnemyArmy(string fraction, int count)
         {
 
             if (string.IsNullOrEmpty(fraction))
@@ -66,7 +66,7 @@ namespace GameObjectManagment
         }
 
 
-        public static List<EnemyArmy> CheckArmyConflict(List<EnemyArmy> armies)
+        public static List<EnemyArmy> CheckArmiesConflict(List<EnemyArmy> armies)
         {
 
             for (int i = 0; i < armies.Count; i++)
@@ -78,17 +78,6 @@ namespace GameObjectManagment
 
         }
 
-
-        public static void BesiegeCity(EnemyArmy army, City city)
-        {
-
-            army.KillScore += city.Besiege();
-
-            if (city.Status == "Уничтожен")
-                army.DestroyScore++;
-                army.Gold += city.Gold;
-
-        }
 
     }
 

@@ -59,10 +59,21 @@ namespace Events
                 armies.Remove(blueArmy);
             }
 
-            Thread.Sleep(3000);
+
             return armies;
 
         }
+
+        public static EnemyArmy EnemyArmyDamageCalc (EnemyArmy army, int damage)
+        {
+
+
+            return army;
+
+        }
+
+
+
 
     }
 
