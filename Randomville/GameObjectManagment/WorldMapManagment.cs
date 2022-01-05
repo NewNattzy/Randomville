@@ -2,8 +2,6 @@
 using GameConfig;
 using DevHelper;
 using GameObjects;
-using Events;
-using GameObjectManagment;
 
 
 namespace GameObjectManagment
@@ -15,18 +13,40 @@ namespace GameObjectManagment
         private static Random random = new Random();
         private static readonly int verticalLendth = Config.MaxMapSize / 5;
         private static readonly int horizontalLendth = Config.MaxMapSize;
-        // TODO: Сделать X и Y по нормальному, все время путаюсь
+        private static readonly int[] restrictedArea = new int[3] { 0, horizontalLendth - 1, verticalLendth - 1 };
+
+        // TODO: Переписать вместе с генерацией координат, много повторяющегося кода
+        private static int x;
+        private static int y;
+
+        // TODO: Поправить координаты x, y. Часто путаюсь, что плохо
         private static char[,] mapMarkup = new char[verticalLendth, horizontalLendth];
+
+
+        public static void RandomizeCord()
+        {
+
+            x = random.Next(1, horizontalLendth - 1);
+            y = random.Next(1, verticalLendth - 1);
+
+        }
 
 
         public static void CreateMap()
         {
 
-            // Отрисовка карты
             for (int i = 0; i < verticalLendth - 1; i++)
                 for (int j = 0; j < horizontalLendth - 1; j++)
                     mapMarkup[i, j] = Graphics.GetPicture("Landscape");
+                    
+            AddBoundaries();
+            AddStaticObjects();
 
+        }
+
+
+        public static void AddBoundaries()
+        {
 
             // Отрисовка стен
             for (int i = 0; i < horizontalLendth - 1; i++)
@@ -41,7 +61,6 @@ namespace GameObjectManagment
                 mapMarkup[i, horizontalLendth - 1] = Graphics.GetPicture("VerticalWall");
             }
 
-
             // Отрисовка углов
             mapMarkup[0, 0] = Graphics.GetPicture("UpperLeftCorner");
             mapMarkup[0, horizontalLendth - 1] = Graphics.GetPicture("LowerLeftCorner");
@@ -51,16 +70,39 @@ namespace GameObjectManagment
         }
 
 
+        // TODO: Добавить логику "группировки" скал и отрисовки рек от края карты (не точечно)
+        public static void AddStaticObjects()
+        {
+
+            RandomizeCord();
+
+            for (int i = 0; i < 10; i++)
+            {
+                RandomizeCord();
+                mapMarkup[y, x] = Graphics.GetPicture("Mountain");
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+
+                RandomizeCord();
+                mapMarkup[y, x] = Graphics.GetPicture("River");
+
+            }
+
+        }
+
+
         public static void PutObject(char objectLabel, out int x, out int y)
         {
 
-            x = 0;
-            y = 0;
+            x = random.Next(1, horizontalLendth - 1);
+            y = random.Next(1, verticalLendth - 1);
 
             while (mapMarkup[y, x] != Graphics.GetPicture("Landscape"))
             {
-                x = random.Next(1, horizontalLendth-1);
-                y = random.Next(1, verticalLendth-1);
+                x = random.Next(1, horizontalLendth - 1);
+                y = random.Next(1, verticalLendth - 1);
             }
 
             mapMarkup[y, x] = objectLabel;
@@ -68,56 +110,25 @@ namespace GameObjectManagment
         }
 
 
-        public static List<EnemyArmy> MoveArmies(List<EnemyArmy> armies)
+        public static void RemoveObject(int xCord, int yCord)
         {
 
-            for(int i = 0; i < armies.Count; i++)
-            {
+            Console.WriteLine($"Удален объект: XCORD = {xCord}, YCORD = {yCord}");
+            mapMarkup[yCord, xCord] = Graphics.GetPicture("Landscape");
 
-                if (mapMarkup[armies[i].YCord, armies[i].XCord] != Graphics.GetPicture("City"))
-                    mapMarkup[armies[i].YCord, armies[i].XCord] = Graphics.GetPicture("Landscape");
-
-
-                armies[i].XCord += random.Next(-1, 2);
-                armies[i].YCord += random.Next(-1, 2);
-
-
-                // TODO: Придумать решение получше
-                if (armies[i].XCord == horizontalLendth - 1)
-                    armies[i].XCord = horizontalLendth - 2;
-
-                if (armies[i].YCord == verticalLendth - 1)
-                    armies[i].YCord = verticalLendth - 2;
-
-                if (armies[i].XCord == 0)
-                    armies[i].XCord = 1;
-
-                if (armies[i].YCord == 0)
-                    armies[i].YCord = 1;
-
-
-                if (mapMarkup[armies[i].YCord, armies[i].XCord] != Graphics.GetPicture("City"))
-                    mapMarkup[armies[i].YCord, armies[i].XCord] = armies[i].Graphics;
-
-            }
-
-            return armies;
-
-        }
-
-
-        public static void RemoveObject(int x, int y)
-        {
-            mapMarkup[y, x] = Graphics.GetPicture("Landscape");
         }
 
 
         public static void ShowMap()
         {
 
-            Console.Clear();
+            Console.SetCursorPosition(0, 0);
+            //Thread.Sleep(100);
+            Console.WriteLine("КАРТА МИРА");
+
             for (int i = 0; i < verticalLendth; i++)
             {
+
                 for (int j = 0; j < horizontalLendth; j++)
                 {
                     Console.ForegroundColor = Graphics.SetColor(mapMarkup[i, j]);
@@ -125,6 +136,35 @@ namespace GameObjectManagment
                 }
 
                 Console.WriteLine();
+
+            }
+
+        }
+
+
+        public static void MoveArmies(ref List<EnemyArmy> armies)
+        {
+
+            for (int i = 0; i < armies.Count; i++)
+            {
+
+                if (!Graphics.nonRewritableTiles.Contains(mapMarkup[armies[i].YCord, armies[i].XCord]))
+                    mapMarkup[armies[i].YCord, armies[i].XCord] = Graphics.GetPicture("Landscape");
+
+
+                x = random.Next(-1, 2);
+                y = random.Next(-1, 2);
+
+                if (!restrictedArea.Contains(armies[i].XCord + x) && !restrictedArea.Contains(armies[i].YCord + y))
+                {
+                    armies[i].XCord += x;
+                    armies[i].YCord += y;
+                }
+
+
+                if (!Graphics.nonRewritableTiles.Contains(mapMarkup[armies[i].YCord, armies[i].XCord]))
+                    mapMarkup[armies[i].YCord, armies[i].XCord] = armies[i].Graphics;
+
             }
 
         }

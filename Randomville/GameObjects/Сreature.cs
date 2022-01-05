@@ -10,12 +10,14 @@ namespace GameObjects
 
         public Creature(int basehealth, int basemana, int damage, int level, int exp, int gold)
         {
+
             Health = basehealth;
             Mana = basemana;
             Damage = damage;
             Level = level;
             Exp = exp;
             Gold = gold;
+
         }
 
 

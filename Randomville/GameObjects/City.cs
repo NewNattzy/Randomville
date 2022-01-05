@@ -15,9 +15,11 @@ namespace GameObjects
         public City(string name, string type, string landscape, int danger, int population, string weather, int xCord, int yCord)
             : base(name, type, landscape, danger, population, weather, xCord, yCord)
         {
+
             // TODO: Проверка входных параметров
             Gold = random.Next(1000, 3000);
             maxPopulation = Config.BaseLocationPopulation * (random.Next(250, 500));
+
         }
 
 
@@ -62,8 +64,10 @@ namespace GameObjects
 
             if (Status != "Проклят")
             {
+
                 Status = "Проклят";
                 Weather = "Туман";
+
             }
 
             Population -= 50 * Danger;
@@ -94,19 +98,22 @@ namespace GameObjects
 
                 if (Status != "Процветает")
                 {
+
                     Status = "Процветает";
                     Population = maxPopulation;
                     Danger = 0;
+
                 }
             }
             else if (Population < maxPopulation)
             {
+
                 Population += (int)calcPercent;
                 Gold += (int)calcPercent;
+
             }
 
         }
-
 
     }
 

@@ -11,7 +11,7 @@ namespace GameObjectManagment
 
         private static readonly Random random = new();
 
-        // TODO: Завязать генерацию на БД, этот мусор удалить
+        // TODO: Завязать генерацию на БД, файлы подчистить
         private static readonly string libraryName = "Library\\Name.txt";
         private static readonly string libraryLandscape = "Library\\Landscape.txt";
         private static readonly string libraryWeather = "Library\\Weather.txt";
@@ -23,7 +23,7 @@ namespace GameObjectManagment
 
         public static City CreateCity()
         {
-            // TODO: Пофиксить убогость
+            
             string type = "Город";
 
             string name = File.ReadLines(libraryName).Skip(random.Next(countLineInName)).First();
@@ -33,13 +33,14 @@ namespace GameObjectManagment
             int danger = random.Next(0, 3);
             int population = random.Next(1000, 2500);
 
-
             WorldMapManagment.PutObject(Graphics.GetPicture("City"), out int xCord, out int yCord);
 
             return new City(name, type, landscape, danger, population, weather, xCord, yCord);
 
         }
 
+
+        // TODO: Доделать генерацию поселков
         public static Village CreateVillage()
         {
 
@@ -58,6 +59,8 @@ namespace GameObjectManagment
 
         }
 
+
+        // TODO: Доделать генерацию дикой местности
         public static Wilderness CreateWilderness()
         {
 
@@ -73,7 +76,7 @@ namespace GameObjectManagment
         }
 
 
-        public static List<City> CheckCityConflict(List<EnemyArmy> armies, List<City> cities)
+        public static void CheckCityConflict(ref List<EnemyArmy> armies, ref List<City> cities)
         {
 
             for (int i = 0; i < armies.Count; i++)
@@ -83,22 +86,24 @@ namespace GameObjectManagment
 
             CheckCitiesStatus(cities);
 
-            return cities;
-
         }
 
 
         public static List<City> CheckCitiesStatus(List<City> cities)
         {
+
             for (int i = 0; i < cities.Count; i++)
                 if (cities[i].Status == "Уничтожен")
                 {
-                    Console.WriteLine($"Город {cities[i].Name} уничтожен!");
+
+                    // Console.WriteLine($"Город {cities[i].Name} уничтожен!");
                     WorldMapManagment.RemoveObject(cities[i].XCord, cities[i].YCord);
                     cities.RemoveAt(i);
+
                 }
 
             return cities;
+
         }
 
 

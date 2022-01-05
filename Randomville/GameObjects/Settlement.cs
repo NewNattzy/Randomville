@@ -14,6 +14,7 @@ namespace GameObjects
 
         public Settlement(string name, string type, string landscape, int danger, int population, string weather, int xCord, int yCord)
         {
+
             locationCount++;
             Status = "В порядке";
 
@@ -26,6 +27,7 @@ namespace GameObjects
 
             XCord = xCord;
             YCord = yCord;
+
         }
 
 
@@ -34,8 +36,10 @@ namespace GameObjects
         public string Landscape { get; set; }
         public string Weather { get; set; }
         public string Status { get; set; }
+
         public int Danger { get; set; }
         public int Population { get; set; }
+
         public int XCord { get; set; }
         public int YCord { get; set; }
 
