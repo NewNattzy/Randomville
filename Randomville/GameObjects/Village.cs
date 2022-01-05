@@ -14,9 +14,11 @@ namespace GameObjects
         public Village(string name, string type, string landscape, int danger, int population, string weather, int xCord, int yCord)
             : base(name, type, landscape, danger, population, weather, xCord, yCord)
         {
+
             // TODO: Проверка входных параметров
             Gold = random.Next(100, 1000);
             maxPopulation = Config.BaseLocationPopulation * (random.Next(10, 50));
+
         }
 
         public int Gold { get; set; }
@@ -41,8 +43,10 @@ namespace GameObjects
 
             if (Status != "Проклят")
             {
+
                 Status = "Проклят";
                 Weather = "Туман";
+
             }    
            
             Population -= 10 * Danger;
@@ -69,15 +73,19 @@ namespace GameObjects
 
             if (Population > maxPopulation && Gold > 5000)
             {
+
                 Gold += (int)calcPercent;
                 Population = maxPopulation;
                 Status = "Процветает";
                 Danger = 0;
+
             }
             else if (Population < maxPopulation)
             {
+
                 Population += (int)calcPercent;
                 Gold += (int)calcPercent;
+
             }
 
         }

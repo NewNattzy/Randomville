@@ -13,6 +13,7 @@ namespace GameObjects
 
         public Wilderness(string name, string type, string landscape, string status, int danger, string weather)
         {
+
             // TODO: Проверка входных параметров
             Name = name;
             Type = type;
@@ -20,6 +21,7 @@ namespace GameObjects
             Danger = danger;
             Status = status;
             Weather = weather;
+
         }
 
         public string Name { get; set; }
@@ -27,6 +29,7 @@ namespace GameObjects
         public string Landscape { get; set; }
         public string Weather { get; set; }
         public string Status { get; set; }
+
         public int Danger { get; set; }
         public int Resources { get; set; }
 
@@ -36,8 +39,10 @@ namespace GameObjects
 
             if (Status != "Проклят")
             {
+
                 Status = "Проклят";
                 Weather = "Густой туман";
+
             }
 
             calcPersent = Resources * 0.2;
@@ -60,8 +65,10 @@ namespace GameObjects
                 calcPersent = Resources * 0.2;
             else if (Resources >= MAX_RESOURCES)
             {
+
                 Resources = MAX_RESOURCES;
                 Status = "Процветает";
+
             }
 
         }
@@ -69,7 +76,9 @@ namespace GameObjects
 
         public void Destroy()
         {
+
             throw new NotImplementedException();
+
         }
 
     }

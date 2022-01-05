@@ -17,6 +17,7 @@ namespace GameObjects
 
         public EnemyArmy(string name, string fraction, int xCord, int yCord)
         {
+
             // TODO: Проверка входных параметров
             Name = name;
             Fraction = fraction;
@@ -26,24 +27,30 @@ namespace GameObjects
 
             XCord = xCord;
             YCord = yCord;
+
         }
 
 
         public string? Name { get; set; }
+        public string Fraction { get; set; }
+
         public int UnitCount { get; set; }
         public int Gold { get; set; }
         public int KillScore { get; set; }
         public int DestroyScore { get; set; }
-        public string Fraction { get; set; }
-        public char Graphics { get; set; }
+
         public int XCord { get; set; }
         public int YCord { get; set; }
+
+        public char Graphics { get; set; }
 
 
         public Enemy this[int index]
         {
+
             get => MonsterArmy[index];
             set => MonsterArmy[index] = value;
+
         }
 
 
@@ -55,8 +62,10 @@ namespace GameObjects
 
             if (MonsterArmy.Count < MAX_ARMY_COUNT)
             {
+
                 MonsterArmy.Add(enemy);
                 UnitCount = MonsterArmy.Count;
+
             }
                 
         }
@@ -64,20 +73,24 @@ namespace GameObjects
 
         public void Remove(Enemy enemy)
         {
+
             if (enemy == null)
                 throw new ArgumentNullException(nameof(enemy));
             MonsterArmy.Remove(enemy);
+
         }
 
 
-        public void ShowStructureArmy()
+        public void ShowStructure()
         {
 
             Console.WriteLine($"{Name}: ");
             foreach (Enemy enemy in MonsterArmy)
             {
+
                 Console.WriteLine($"{enemy.Type} {enemy.Rank} {enemy.Name}, характеристики: ");
                 Console.WriteLine($"HP {enemy.Health}, MP {enemy.Mana}, Damage {enemy.Damage}, Level {enemy.Level}\n");
+
             }
 
         }

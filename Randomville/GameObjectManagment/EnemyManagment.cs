@@ -14,7 +14,7 @@ namespace GameObjectManagment
         public static Enemy CreateSingleEnemy(string fraction, string rank)
         {
 
-            // TODO: Такое себе, надо переписать
+            // TODO: Проблемы с запросами к БД, подумать над переносом в класс Enemy
             if (string.IsNullOrEmpty(fraction) || string.IsNullOrEmpty(rank))
                 throw new ArgumentNullException(fraction);
 
@@ -35,7 +35,8 @@ namespace GameObjectManagment
         }
 
 
-        public static EnemyArmy CreateArmyEnemy(string fraction, int count)
+        // TODO: Подумать над переносом в класс EnemyArmy, допилить логику добавления юнита в лист
+        public static EnemyArmy CreateEnemyArmy(string fraction, int count)
         {
 
             if (string.IsNullOrEmpty(fraction))
@@ -57,41 +58,31 @@ namespace GameObjectManagment
             {
                 for (int j = 0; j < rankRatio[i]; j++)
                 {
+
                     army.Add(CreateSingleEnemy(fraction, rank[i]));
+
                 }
             }
-
+            
             return army;
 
         }
 
 
-        public static List<EnemyArmy> CheckArmyConflict(List<EnemyArmy> armies)
+        public static void CheckArmiesConflict(ref List<EnemyArmy> armies)
         {
 
             for (int i = 0; i < armies.Count; i++)
                 for (int j = 1; j < armies.Count; j++)
                     if (armies[i].XCord == armies[j].XCord && armies[i].YCord == armies[j].YCord && armies[i].Fraction != armies[j].Fraction)
-                        armies = Fight.ArmyFight(armies[i], armies[j], armies);
+                    {
 
-            return armies;
+                        Fight.ArmyFight(armies[i], armies[j], ref armies);
 
-        }
-
-
-        public static void BesiegeCity(EnemyArmy army, City city)
-        {
-
-            army.KillScore += city.Besiege();
-
-            if (city.Status == "Уничтожен")
-                army.DestroyScore++;
-                army.Gold += city.Gold;
+                    }       
 
         }
 
     }
 
 }
-
-

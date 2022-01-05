@@ -10,8 +10,7 @@ namespace DataBase
 
         private static readonly string connectionString = "Server=NATTZY\\SQLEXPRESS;Database=Randomville;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True";
 
-        /* Крайне хреново, но обращаться к методу я планирую не часто. В будущем переделаю.
-           Пока что бороться с 100-ней запросов не буду, выполняется 0.5 секунд вместо 0.02 */ 
+        // TODO: Не оптимизировано, сократить число соединений с БД
         public static List<object> GetCollection(string sqlExpression)
         {
 
@@ -22,7 +21,10 @@ namespace DataBase
 
                 connection.Open();
                 SqlCommand sqlCommand = new SqlCommand(sqlExpression, connection);
+
+
                 SqlDataReader reader = sqlCommand.ExecuteReader();
+
 
                 if (reader.Read())
                 {

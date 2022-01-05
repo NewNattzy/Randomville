@@ -8,8 +8,8 @@ namespace Events
     public class Fight
     {
 
-        // TODO: Переписать файты армий, добавить еще функционала (пока не занимался особо)
-        public static List<EnemyArmy> ArmyFight(EnemyArmy blueArmy, EnemyArmy redArmy, List<EnemyArmy> armies)
+        // TODO: Не оптимизировано, изменить логику подсчета урона (по юнитам)
+        public static void ArmyFight(EnemyArmy blueArmy, EnemyArmy redArmy, ref List<EnemyArmy> armies)
         {
 
             if (blueArmy == null)
@@ -49,18 +49,9 @@ namespace Events
 
 
             if (blueStats[0] > redStats[0])
-            {
-                Console.WriteLine($"{blueArmy.Name} победила {redArmy.Name}");
                 armies.Remove(redArmy);
-            }    
             else
-            {
-                Console.WriteLine($"{redArmy.Name} победила {blueArmy.Name}");
                 armies.Remove(blueArmy);
-            }
-
-            Thread.Sleep(3000);
-            return armies;
 
         }
 

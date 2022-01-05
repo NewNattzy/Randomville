@@ -9,6 +9,7 @@ namespace GameObjectManagment
     public static class PlayerManagement
     {
         #nullable disable
+        // TODO: Допилить создание персонажа, завязать на БД
         public static Player CreatePlayer()
         {   
             
@@ -19,23 +20,30 @@ namespace GameObjectManagment
             bool isValidName = false;
             bool isValidSpecial = false;
 
+
             while (!isValidName)
             {
+
                 Console.WriteLine("Оракул: Введи свое имя, герой!");
                 Console.Write("Ты: ");
 
-                name = "Нашер";// Console.ReadLine();
+                name = Console.ReadLine();
                 Console.Clear();
                 
                 if (!string.IsNullOrEmpty(name) && name.Length >= 3)
                 {
+
                     name.ToUpperFirstChar();
                     isValidName = true;
+
                 }   
+
             }
+
 
             while (!isValidSpecial)
             {
+
                 Console.WriteLine($"Оракул: Отлично, {name}. Теперь выбери свою судьбу. Ты воин, лучник или маг?");
                 Console.Write($"{name}: ");
 
@@ -46,14 +54,18 @@ namespace GameObjectManagment
                     isValidSpecial = true;
 
                 Console.Clear();
+
             }
+
 
             int baseHealth = 0;
             int baseMana = 0;
             int gold = 0;
             
+
             switch (special)
             {
+
                 case "Воин":
                     baseHealth = 200;
                     baseMana = 50;
@@ -74,11 +86,13 @@ namespace GameObjectManagment
 
                 default:
                     break;
+
             }
 
             return new Player(name, baseHealth, baseMana, 10, 1, 10, gold, special);
 
         }
+
 
         public static void LevelUP(Player player)
         {
@@ -90,19 +104,23 @@ namespace GameObjectManagment
             Console.Write($"{player.Name}: ");
             string answer = Console.ReadLine();
 
+
             if (variants.Contains(answer.ToLower()))
             {
 
                 if (player.Exp >= Player.newLevelExp && player.Gold >= player.Level*50)
                 {
+
                     player.Exp -= Player.newLevelExp;
                     player.Gold -= player.Level*50;
 
                     player.Level++;
                     player.Health += player.Health;
                     player.Mana += player.Mana;
+
                     switch (player.Special)
                     {
+
                         case "Воин":
                             player.Damage += 3;
                             break;
@@ -117,24 +135,32 @@ namespace GameObjectManagment
 
                         default:
                             break;
+
                     }
+
                     Player.newLevelExp += Player.newLevelExp;
 
                     Console.WriteLine($"\nОракул: Твой уровень вырос! Теперь ты {player.Special} {player.Level} уровня.");
                     Console.WriteLine($"Оракул: Текущий опыт {player.Exp}, остаток золота {player.Gold}.\n");
+
                 }
                 else
                 {
+
                     Console.WriteLine("\nОракул: У тебя недостаточно ресурсов. Приходи когда будешь готов!\n");
+
                 }
 
             }
             else
             { 
+
                 Console.WriteLine("\nОракул: Так я и думал.\n");
+
             }
 
         }
+
 
         public static void ShowPlayerInfo(Player player)
         {
@@ -150,7 +176,6 @@ namespace GameObjectManagment
             Console.WriteLine($"Золото        : {player.Gold}\n");
 
         }
-
 
     }
 
