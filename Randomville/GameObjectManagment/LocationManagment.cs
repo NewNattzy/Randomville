@@ -33,7 +33,7 @@ namespace GameObjectManagment
             int danger = random.Next(0, 3);
             int population = random.Next(1000, 2500);
 
-            WorldMapManagment.PutObject(Graphics.GetPicture("City"), out int xCord, out int yCord);
+            WorldMap.PutObject(Graphics.GetPicture("City"), out int xCord, out int yCord);
 
             return new City(name, type, landscape, danger, population, weather, xCord, yCord);
 
@@ -76,7 +76,7 @@ namespace GameObjectManagment
         }
 
 
-        public static void CheckCityConflict(ref List<EnemyArmy> armies, ref List<City> cities)
+        public static void CheckCityConflict(ref List<Army> armies, ref List<City> cities)
         {
 
             for (int i = 0; i < armies.Count; i++)
@@ -97,7 +97,7 @@ namespace GameObjectManagment
                 {
 
                     // Console.WriteLine($"Город {cities[i].Name} уничтожен!");
-                    WorldMapManagment.RemoveObject(cities[i].XCord, cities[i].YCord);
+                    WorldMap.RemoveObject(cities[i].XCord, cities[i].YCord);
                     cities.RemoveAt(i);
 
                 }
@@ -107,7 +107,7 @@ namespace GameObjectManagment
         }
 
 
-        public static void BesiegeCity(EnemyArmy army, City city)
+        public static void BesiegeCity(Army army, City city)
         {
 
             army.KillScore += city.Besiege();

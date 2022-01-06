@@ -14,9 +14,9 @@ namespace Events
         {
 
             // TODO: BinaryFormatter устарел, нужно менять на xml или json
-            EnemyArmy army = EnemyManagment.CreateEnemyArmy("Нежить", 40);
+            Army army = MilitaryActions.CreateArmy("Нежить", 40);
 
-            var xmlFormatter = new XmlSerializer(typeof(EnemyArmy));
+            var xmlFormatter = new XmlSerializer(typeof(Army));
 
 
             using (var file = new FileStream("Save.xml", FileMode.OpenOrCreate))
@@ -29,7 +29,7 @@ namespace Events
             {
                 object? newArmy = xmlFormatter.Deserialize(file);
                 if (newArmy != null)
-                    army = (EnemyArmy)newArmy;
+                    army = (Army)newArmy;
             };
 
         }

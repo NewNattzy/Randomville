@@ -30,7 +30,7 @@ namespace DevHelper
 
                 string sqlQuery = $"SELECT Name, Symbol, Color, Overwriting FROM Graphics WHERE ID={i}";
 
-                List<object> graphics = SqlConnector.GetCollection(sqlQuery);
+                List<object> graphics = DataBaseConnector.GetCollection(sqlQuery);
 
                 pictures.Add((string)graphics[0], Convert.ToChar(graphics[1]));
                 colors.Add(Convert.ToChar(graphics[1]), (ConsoleColor)graphics[2]);

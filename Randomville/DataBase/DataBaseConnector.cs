@@ -5,7 +5,7 @@ using Microsoft.Data.SqlClient;
 namespace DataBase
 {
 
-    public static class SqlConnector
+    public static class DataBaseConnector
     {
 
         private static readonly string connectionString = "Server=NATTZY\\SQLEXPRESS;Database=Randomville;Trusted_Connection=True;Encrypt=False;TrustServerCertificate=True";
