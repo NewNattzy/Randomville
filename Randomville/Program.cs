@@ -29,16 +29,16 @@ namespace ConsoleGame
             GamePreparation();
 
 
-            WorldMapManagment.CreateMap();
+            WorldMap.CreateMap();
             Random random = new Random();
 
 
-            List<EnemyArmy> enemyArmies = new List<EnemyArmy>();
+            List<Army> armies = new List<Army>();
             for (int i = 0; i < 20; i++)
             {
 
-                enemyArmies.Add(EnemyManagment.CreateEnemyArmy("Нежить", random.Next(10, 99)));
-                enemyArmies.Add(EnemyManagment.CreateEnemyArmy("Орда", random.Next(10, 99)));
+                armies.Add(MilitaryActions.CreateArmy("Нежить", random.Next(10, 99)));
+                armies.Add(MilitaryActions.CreateArmy("Орда", random.Next(10, 99)));
 
             }
 
@@ -51,12 +51,19 @@ namespace ConsoleGame
             while (true)
             {
 
-                WorldMapManagment.MoveArmies(ref enemyArmies);
+                WorldMap.MoveArmies(ref armies);
 
-                EnemyManagment.CheckArmiesConflict(ref enemyArmies);
-                LocationManagment.CheckCityConflict(ref enemyArmies, ref cities);
 
-                WorldMapManagment.ShowMap();
+                if (MilitaryActions.CheckСonflictsArmiesOnMap(armies) == true)
+                {
+                    MilitaryActions.StartMilitaryEvent(ref armies);
+                }
+
+
+                LocationManagment.CheckCityConflict(ref armies, ref cities);
+
+
+                WorldMap.ShowMap();
 
             }
 

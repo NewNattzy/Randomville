@@ -7,7 +7,7 @@ using GameObjects;
 namespace GameObjectManagment
 {
 
-    public static class WorldMapManagment
+    public static class WorldMap
     {
 
         private static Random random = new Random();
@@ -142,7 +142,7 @@ namespace GameObjectManagment
         }
 
 
-        public static void MoveArmies(ref List<EnemyArmy> armies)
+        public static void MoveArmies(ref List<Army> armies)
         {
 
             for (int i = 0; i < armies.Count; i++)

@@ -4,7 +4,7 @@
 namespace GameObjects
 {
 
-    public class EnemyArmy
+    public class Army
     {
 
         [NonSerialized]
@@ -12,10 +12,10 @@ namespace GameObjects
 
         private const int MAX_ARMY_COUNT = 100;
 
-        private List<Enemy> MonsterArmy = new List<Enemy>();
+        private List<Enemy> Units = new List<Enemy>();
 
 
-        public EnemyArmy(string name, string fraction, int xCord, int yCord)
+        public Army(string name, string fraction, int xCord, int yCord)
         {
 
             // TODO: Проверка входных параметров
@@ -48,8 +48,8 @@ namespace GameObjects
         public Enemy this[int index]
         {
 
-            get => MonsterArmy[index];
-            set => MonsterArmy[index] = value;
+            get => Units[index];
+            set => Units[index] = value;
 
         }
 
@@ -60,11 +60,11 @@ namespace GameObjects
             if (enemy == null)
                 throw new ArgumentNullException(nameof(enemy));
 
-            if (MonsterArmy.Count < MAX_ARMY_COUNT)
+            if (Units.Count < MAX_ARMY_COUNT)
             {
 
-                MonsterArmy.Add(enemy);
-                UnitCount = MonsterArmy.Count;
+                Units.Add(enemy);
+                UnitCount = Units.Count;
 
             }
                 
@@ -76,7 +76,7 @@ namespace GameObjects
 
             if (enemy == null)
                 throw new ArgumentNullException(nameof(enemy));
-            MonsterArmy.Remove(enemy);
+            Units.Remove(enemy);
 
         }
 
@@ -85,7 +85,7 @@ namespace GameObjects
         {
 
             Console.WriteLine($"{Name}: ");
-            foreach (Enemy enemy in MonsterArmy)
+            foreach (Enemy enemy in Units)
             {
 
                 Console.WriteLine($"{enemy.Type} {enemy.Rank} {enemy.Name}, характеристики: ");
