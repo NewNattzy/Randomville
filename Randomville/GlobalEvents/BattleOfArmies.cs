@@ -2,10 +2,10 @@
 using GameObjects;
 
 
-namespace Events
+namespace GlobalEvents
 {
 
-    public class War
+    public class BattleOfArmies
     {
 
         private static Dictionary<string, int> parametrsFirstArmy = new Dictionary<string, int>() { { "Health", 0 }, { "Mana", 0 }, { "Damage", 0 } };
@@ -19,7 +19,7 @@ namespace Events
         {
 
             CheckListArmiesForNull(armies);
-            CalculateParametersArmy(armies);
+            CalculateParametersArmies(armies);
             return GetLosingArmy(armies);
 
         }
@@ -32,7 +32,7 @@ namespace Events
         }
 
 
-        private static void CalculateParametersArmy(List<Army> armies)
+        private static void CalculateParametersArmies(List<Army> armies)
         {
 
             for (int unit = 0; unit < armies[0].UnitCount; unit++)
@@ -57,7 +57,7 @@ namespace Events
         private static Army GetLosingArmy(List<Army> armies)
         {
 
-            DamageDistribution();
+            CalculateDamage();
 
             if (parametrsFirstArmy["Health"] < parametrsSecondArmy["Health"])
                 return armies[0];
@@ -67,7 +67,7 @@ namespace Events
         }
 
 
-        private static void DamageDistribution()
+        private static void CalculateDamage()
         {
 
             while (parametrsFirstArmy["Health"] > 0 || parametrsSecondArmy["Health"] > 0)

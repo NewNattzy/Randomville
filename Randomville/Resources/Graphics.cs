@@ -2,7 +2,7 @@
 using DataBase;
 
 
-namespace DevHelper
+namespace Resources
 {
 
     public static class Graphics

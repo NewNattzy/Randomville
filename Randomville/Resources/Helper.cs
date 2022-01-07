@@ -2,10 +2,10 @@
 using System.Text.RegularExpressions;
 
 
-namespace DevHelper
+namespace Helper
 {
 
-    public static class Helper
+    public static class ExtensionMethodsSet
     {
 
         public static string ToUpperFirstChar(this string data)

@@ -2,7 +2,7 @@
 using GameConfig;
 using GameObjects;
 using GameObjectManagment;
-using DevHelper;
+using Resources;
 
 
 namespace ConsoleGame
@@ -28,7 +28,6 @@ namespace ConsoleGame
 
             GamePreparation();
 
-
             WorldMap.CreateMap();
             Random random = new Random();
 
@@ -45,7 +44,7 @@ namespace ConsoleGame
 
             List<City> cities = new List<City>();
             for (int i = 0; i < 10; i++)
-                cities.Add(LocationManagment.CreateCity());
+                cities.Add(Location.CreateCity());
 
 
             while (true)
@@ -60,7 +59,7 @@ namespace ConsoleGame
                 }
 
 
-                LocationManagment.CheckCityConflict(ref armies, ref cities);
+                Location.CheckCityConflict(ref armies, ref cities);
 
 
                 WorldMap.ShowMap();

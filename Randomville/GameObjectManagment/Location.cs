@@ -1,12 +1,12 @@
 ﻿using System;
 using GameObjects;
-using DevHelper;
+using Resources;
 
 
 namespace GameObjectManagment
 {
 
-    public static class LocationManagment
+    public static class Location
     {
 
         private static readonly Random random = new();
@@ -40,7 +40,6 @@ namespace GameObjectManagment
         }
 
 
-        // TODO: Доделать генерацию поселков
         public static Village CreateVillage()
         {
 
@@ -60,7 +59,6 @@ namespace GameObjectManagment
         }
 
 
-        // TODO: Доделать генерацию дикой местности
         public static Wilderness CreateWilderness()
         {
 
@@ -96,7 +94,6 @@ namespace GameObjectManagment
                 if (cities[i].Status == "Уничтожен")
                 {
 
-                    // Console.WriteLine($"Город {cities[i].Name} уничтожен!");
                     WorldMap.RemoveObject(cities[i].XCord, cities[i].YCord);
                     cities.RemoveAt(i);
 

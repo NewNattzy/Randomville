@@ -4,7 +4,6 @@
 namespace GameObjects
 {
 
-    [Serializable]
     public class Enemy : Creature
     {
 

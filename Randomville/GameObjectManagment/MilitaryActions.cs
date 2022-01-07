@@ -1,8 +1,8 @@
 ﻿using System;
 using GameObjects;
 using DataBase;
-using DevHelper;
-using Events;
+using Resources;
+using GlobalEvents;
 
 
 namespace GameObjectManagment
@@ -10,7 +10,6 @@ namespace GameObjectManagment
 
     public static class MilitaryActions
     {
-
 
         public static bool CheckСonflictsArmiesOnMap(List<Army> armies)
         {
@@ -48,7 +47,7 @@ namespace GameObjectManagment
         {
 
             List<Army> ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
-            armies.Remove(War.GetLoserArmyThatBattle(ParticipantBattle));
+            armies.Remove(BattleOfArmies.GetLoserArmyThatBattle(ParticipantBattle));
 
         }
 
