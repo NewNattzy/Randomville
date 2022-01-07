@@ -1,6 +1,6 @@
 ﻿using System;
 using GameConfig;
-using DevHelper;
+using Resources;
 using GameObjects;
 
 

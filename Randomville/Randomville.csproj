@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Spells\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="4.0.0" />
     <PackageReference Include="PrettyBin" Version="1.1.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />

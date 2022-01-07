@@ -18,7 +18,6 @@ namespace GameObjects
         public Army(string name, string fraction, int xCord, int yCord)
         {
 
-            // TODO: Проверка входных параметров
             Name = name;
             Fraction = fraction;
 
