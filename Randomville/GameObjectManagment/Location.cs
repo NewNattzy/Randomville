@@ -33,7 +33,7 @@ namespace GameObjectManagment
             int danger = random.Next(0, 3);
             int population = random.Next(1000, 2500);
 
-            WorldMap.PutObject(Graphics.GetPicture("City"), out int xCord, out int yCord);
+            WorldMap.PutObjectOnMap(Graphics.GetPicture("City"), out int xCord, out int yCord);
 
             return new City(name, type, landscape, danger, population, weather, xCord, yCord);
 
@@ -94,7 +94,7 @@ namespace GameObjectManagment
                 if (cities[i].Status == "Уничтожен")
                 {
 
-                    WorldMap.RemoveObject(cities[i].XCord, cities[i].YCord);
+                    WorldMap.RemoveObjectFromMap(cities[i].XCord, cities[i].YCord);
                     cities.RemoveAt(i);
 
                 }

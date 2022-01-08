@@ -24,7 +24,7 @@ namespace GameObjectManagment
         }
 
 
-        private static List<Army> SearchOverlappingArmiesOnMap(List<Army> armies)
+        private static List<Army>? SearchOverlappingArmiesOnMap(List<Army> armies)
         {
 
             for (int i = 0; i < armies.Count; i++)
@@ -43,12 +43,16 @@ namespace GameObjectManagment
         }
 
 
+        // TODO: Придумать название получше
         public static void StartMilitaryEvent(ref List<Army> armies)
         {
 
-            List<Army> ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
-            armies.Remove(BattleOfArmies.GetLoserArmyThatBattle(ParticipantBattle));
-
+            List<Army>? ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
+            if (ParticipantBattle != null)
+            {
+                armies.Remove(BattleOfArmies.GetLoserArmyThatBattle(ParticipantBattle));
+            }
+           
         }
 
 
@@ -88,7 +92,7 @@ namespace GameObjectManagment
                 throw new ArgumentNullException(nameof(fraction));
 
 
-            WorldMap.PutObject(Graphics.GetPicture(fraction), out int xCord, out int yCord);
+            WorldMap.PutObjectOnMap(Graphics.GetPicture(fraction), out int xCord, out int yCord);
 
 
             Army army = new Army($"Армия: {fraction} ({count})", fraction, xCord, yCord);
