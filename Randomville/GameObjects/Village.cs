@@ -15,11 +15,11 @@ namespace GameObjects
             : base(name, type, landscape, danger, population, weather, xCord, yCord)
         {
 
-            // TODO: Проверка входных параметров
             Gold = random.Next(100, 1000);
             maxPopulation = Config.BaseLocationPopulation * (random.Next(10, 50));
 
         }
+
 
         public int Gold { get; set; }
 

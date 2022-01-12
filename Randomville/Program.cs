@@ -33,7 +33,7 @@ namespace ConsoleGame
 
 
             List<Army> armies = new List<Army>();
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 18; i++)
             {
 
                 armies.Add(MilitaryActions.CreateArmy("Нежить", random.Next(10, 99)));
@@ -43,7 +43,7 @@ namespace ConsoleGame
 
 
             List<City> cities = new List<City>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
                 cities.Add(Location.CreateCity());
 
 
@@ -55,7 +55,7 @@ namespace ConsoleGame
 
                 if (MilitaryActions.CheckСonflictsArmiesOnMap(armies) == true)
                 {
-                    MilitaryActions.StartMilitaryEvent(ref armies);
+                    MilitaryActions.StartArmyBattle(ref armies);
                 }
 
 

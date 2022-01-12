@@ -8,6 +8,7 @@ namespace GameObjects
     public class City : Settlement
     {
 
+
         private readonly int maxPopulation;
         private double calcPercent;
 

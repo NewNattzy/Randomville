@@ -23,15 +23,14 @@ namespace GameObjectManagment
 
         }
 
-
-        private static List<Army> SearchOverlappingArmiesOnMap(List<Army> armies)
+        private static List<Army>? SearchOverlappingArmiesOnMap(List<Army> armies)
         {
 
             for (int i = 0; i < armies.Count; i++)
             {
                 for (int j = 1; j < armies.Count; j++)
                 {
-                    if (armies[i].XCord == armies[j].XCord && armies[i].YCord == armies[j].YCord && armies[i].Fraction != armies[j].Fraction)
+                    if (armies[i].XCord == armies[j].XCord && armies[i].YCord == armies[j].YCord && armies[i].fraction != armies[j].fraction)
                     {
                         return new List<Army>() { armies[i], armies[j] };
                     }
@@ -42,17 +41,17 @@ namespace GameObjectManagment
 
         }
 
-
-        public static void StartMilitaryEvent(ref List<Army> armies)
+        public static void StartArmyBattle(ref List<Army> armies)
         {
 
-            List<Army> ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
-            armies.Remove(BattleOfArmies.GetLoserArmyThatBattle(ParticipantBattle));
-
+            List<Army>? ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
+            if (ParticipantBattle != null)
+            {
+                armies.Remove(BattleOfArmies.GetLoserArmyThatBattle(ParticipantBattle));
+            }
+           
         }
 
-
-      
 
 
 
@@ -80,7 +79,7 @@ namespace GameObjectManagment
         }
 
 
-        // TODO: Подумать над переносом в класс EnemyArmy, допилить логику добавления юнита в лист
+        // TODO: Подумать над переносом в класс Army, допилить логику добавления юнита в лист
         public static Army CreateArmy(string fraction, int count)
         {
 
@@ -88,7 +87,7 @@ namespace GameObjectManagment
                 throw new ArgumentNullException(nameof(fraction));
 
 
-            WorldMap.PutObject(Graphics.GetPicture(fraction), out int xCord, out int yCord);
+            WorldMap.PutObjectOnMap(Graphics.GetPicture(fraction), out int xCord, out int yCord);
 
 
             Army army = new Army($"Армия: {fraction} ({count})", fraction, xCord, yCord);
@@ -104,7 +103,7 @@ namespace GameObjectManagment
                 for (int j = 0; j < rankRatio[i]; j++)
                 {
 
-                    army.Add(CreateSingleUnit(fraction, rank[i]));
+                    army.AddUnitInArmy(CreateSingleUnit(fraction, rank[i]));
 
                 }
             }

@@ -2,6 +2,7 @@
 using GameConfig;
 using Resources;
 using GameObjects;
+using Helper;
 
 
 namespace GameObjectManagment
@@ -10,26 +11,14 @@ namespace GameObjectManagment
     public static class WorldMap
     {
 
-        private static Random random = new Random();
-        private static readonly int verticalLendth = Config.MaxMapSize / 5;
-        private static readonly int horizontalLendth = Config.MaxMapSize;
+        internal static readonly int verticalLendth = Config.MaxMapSize / 5;
+        internal static readonly int horizontalLendth = Config.MaxMapSize;
         private static readonly int[] restrictedArea = new int[3] { 0, horizontalLendth - 1, verticalLendth - 1 };
 
-        // TODO: Переписать вместе с генерацией координат, много повторяющегося кода
         private static int x;
         private static int y;
 
-        // TODO: Поправить координаты x, y. Часто путаюсь, что плохо
         private static char[,] mapMarkup = new char[verticalLendth, horizontalLendth];
-
-
-        public static void RandomizeCord()
-        {
-
-            x = random.Next(1, horizontalLendth - 1);
-            y = random.Next(1, verticalLendth - 1);
-
-        }
 
 
         public static void CreateMap()
@@ -38,17 +27,15 @@ namespace GameObjectManagment
             for (int i = 0; i < verticalLendth - 1; i++)
                 for (int j = 0; j < horizontalLendth - 1; j++)
                     mapMarkup[i, j] = Graphics.GetPicture("Landscape");
-                    
-            AddBoundaries();
+
+            AddMapBorders();
+            AddMapBorderCorners();
             AddStaticObjects();
 
         }
 
-
-        public static void AddBoundaries()
+        private static void AddMapBorders()
         {
-
-            // Отрисовка стен
             for (int i = 0; i < horizontalLendth - 1; i++)
             {
                 mapMarkup[0, i] = Graphics.GetPicture("HorizontalWall");
@@ -60,8 +47,11 @@ namespace GameObjectManagment
                 mapMarkup[i, 0] = Graphics.GetPicture("VerticalWall");
                 mapMarkup[i, horizontalLendth - 1] = Graphics.GetPicture("VerticalWall");
             }
+        }
 
-            // Отрисовка углов
+        private static void AddMapBorderCorners()
+        {
+
             mapMarkup[0, 0] = Graphics.GetPicture("UpperLeftCorner");
             mapMarkup[0, horizontalLendth - 1] = Graphics.GetPicture("LowerLeftCorner");
             mapMarkup[verticalLendth - 1, 0] = Graphics.GetPicture("UpperRightCorner");
@@ -70,47 +60,66 @@ namespace GameObjectManagment
         }
 
 
-        // TODO: Добавить логику "группировки" скал и отрисовки рек от края карты (не точечно)
-        public static void AddStaticObjects()
+        private static void AddStaticObjects()
         {
 
-            RandomizeCord();
+            AddRiverOnMap();
+            AddMountainsOnMap();
+            // TODO: Дороги, мосты, озера, etc
 
+        }
+
+
+
+        private static void AddMountainsOnMap()
+        {
+            
             for (int i = 0; i < 10; i++)
             {
-                RandomizeCord();
+                Randomizer.RandCordOnMap(ref x, ref y);
                 mapMarkup[y, x] = Graphics.GetPicture("Mountain");
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 40; i++)
             {
-
-                RandomizeCord();
-                mapMarkup[y, x] = Graphics.GetPicture("River");
-
+                Randomizer.RandCordNextToBorder(ref x, ref y);
+                mapMarkup[y, x] = Graphics.GetPicture("Mountain");
             }
 
         }
 
 
-        public static void PutObject(char objectLabel, out int x, out int y)
+        private static void AddRiverOnMap()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Randomizer.RandCordNextToBorder(ref x, ref y);
+                mapMarkup[y, x] = Graphics.GetPicture("River");
+            }
+
+        }
+
+
+        public static void PutObjectOnMap(char objectLabel, out int xCord, out int yCord)
         {
 
-            x = random.Next(1, horizontalLendth - 1);
-            y = random.Next(1, verticalLendth - 1);
-
-            while (mapMarkup[y, x] != Graphics.GetPicture("Landscape"))
+            do
             {
-                x = random.Next(1, horizontalLendth - 1);
-                y = random.Next(1, verticalLendth - 1);
+                xCord = Randomizer.random.Next(1, horizontalLendth - 1);
+                yCord = Randomizer.random.Next(1, verticalLendth - 1);
+            }
+            while (mapMarkup[yCord, xCord] != Graphics.GetPicture("Landscape"));
+            {
+                xCord = Randomizer.random.Next(1, horizontalLendth - 1);
+                yCord = Randomizer.random.Next(1, verticalLendth - 1);
             }
 
-            mapMarkup[y, x] = objectLabel;
+            mapMarkup[yCord, xCord] = objectLabel;
 
         }
 
 
-        public static void RemoveObject(int xCord, int yCord)
+        public static void RemoveObjectFromMap(int xCord, int yCord)
         {
 
             Console.WriteLine($"Удален объект: XCORD = {xCord}, YCORD = {yCord}");
@@ -123,7 +132,6 @@ namespace GameObjectManagment
         {
 
             Console.SetCursorPosition(0, 0);
-            //Thread.Sleep(100);
             Console.WriteLine("КАРТА МИРА");
 
             for (int i = 0; i < verticalLendth; i++)
@@ -152,8 +160,7 @@ namespace GameObjectManagment
                     mapMarkup[armies[i].YCord, armies[i].XCord] = Graphics.GetPicture("Landscape");
 
 
-                x = random.Next(-1, 2);
-                y = random.Next(-1, 2);
+                Randomizer.RandMovingByOneCell(ref x, ref y);
 
                 if (!restrictedArea.Contains(armies[i].XCord + x) && !restrictedArea.Contains(armies[i].YCord + y))
                 {

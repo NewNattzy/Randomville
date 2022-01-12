@@ -7,21 +7,22 @@ namespace GameObjects
     public class Player : Creature
     {
 
-        public string Special;
+        public readonly string name;
+        public readonly string special;
 
         internal static int newLevelExp = 500;
+
 
         public Player(string name, int basehealth, int basemana, int damage, int level, int exp, int gold, string special)
             : base(basehealth, basemana, damage, level, exp, gold)
         {
 
-            Name = name;
-            Special = special;
+            this.name = name;
+            this.special = special;
 
         }
 
 
-        public string Name { get; set; }
         public int Resources { get; set; }
 
 
@@ -29,8 +30,8 @@ namespace GameObjects
         {
 
             Console.WriteLine("Характеристики персонажа:");
-            Console.WriteLine($"Имя           : {Name}");
-            Console.WriteLine($"Класс         : {Special}");
+            Console.WriteLine($"Имя           : {name}");
+            Console.WriteLine($"Класс         : {special}");
             Console.WriteLine($"Уровень       : {Level}");
             Console.WriteLine($"Здоровье      : {Health}");
             Console.WriteLine($"Мана          : {Mana}");
@@ -60,7 +61,6 @@ namespace GameObjects
 
         }
 
-
         private bool CheckSolvency()
         {
 
@@ -74,7 +74,6 @@ namespace GameObjects
 
         }
 
-
         private void PayForLevelUP()
         {
 
@@ -82,7 +81,6 @@ namespace GameObjects
             Exp -= newLevelExp;
 
         }
-
 
         private void IncreasingParameters()
         {
@@ -95,7 +93,6 @@ namespace GameObjects
 
         }
 
-
         private void GetReplicasWhenLevelUp(string message)
         {
 
@@ -104,16 +101,15 @@ namespace GameObjects
                 Console.WriteLine($"Оракул: Сейчас у тебя {Exp} опыта и {Gold} золота.");
                 Console.WriteLine($"Оракул: Для перехода на следующий уровень нужно {newLevelExp} опыта и {Level * 50} золота.");
                 Console.WriteLine("Оракул: Ты точно хочешь поднять уровень? Враги тоже станут сильнее!\n");
-                Console.Write($"{Name}: ");
+                Console.Write($"{name}: ");
             }
             else if (message == "End")
             {
-                Console.WriteLine($"\nОракул: Твой уровень вырос! Теперь ты {Special} {Level} уровня.");
+                Console.WriteLine($"\nОракул: Твой уровень вырос! Теперь ты {special} {Level} уровня.");
                 Console.WriteLine($"Оракул: Текущий опыт {Exp}, остаток золота {Gold}.\n");
             }
 
         }
-
 
     }
 
