@@ -23,7 +23,6 @@ namespace GameObjectManagment
 
         }
 
-
         private static List<Army>? SearchOverlappingArmiesOnMap(List<Army> armies)
         {
 
@@ -31,7 +30,7 @@ namespace GameObjectManagment
             {
                 for (int j = 1; j < armies.Count; j++)
                 {
-                    if (armies[i].XCord == armies[j].XCord && armies[i].YCord == armies[j].YCord && armies[i].Fraction != armies[j].Fraction)
+                    if (armies[i].XCord == armies[j].XCord && armies[i].YCord == armies[j].YCord && armies[i].fraction != armies[j].fraction)
                     {
                         return new List<Army>() { armies[i], armies[j] };
                     }
@@ -42,9 +41,7 @@ namespace GameObjectManagment
 
         }
 
-
-        // TODO: Придумать название получше
-        public static void StartMilitaryEvent(ref List<Army> armies)
+        public static void StartArmyBattle(ref List<Army> armies)
         {
 
             List<Army>? ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
@@ -55,8 +52,6 @@ namespace GameObjectManagment
            
         }
 
-
-      
 
 
 
@@ -84,7 +79,7 @@ namespace GameObjectManagment
         }
 
 
-        // TODO: Подумать над переносом в класс EnemyArmy, допилить логику добавления юнита в лист
+        // TODO: Подумать над переносом в класс Army, допилить логику добавления юнита в лист
         public static Army CreateArmy(string fraction, int count)
         {
 
@@ -108,7 +103,7 @@ namespace GameObjectManagment
                 for (int j = 0; j < rankRatio[i]; j++)
                 {
 
-                    army.Add(CreateSingleUnit(fraction, rank[i]));
+                    army.AddUnitInArmy(CreateSingleUnit(fraction, rank[i]));
 
                 }
             }

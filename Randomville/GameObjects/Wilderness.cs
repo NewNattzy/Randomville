@@ -14,7 +14,6 @@ namespace GameObjects
         public Wilderness(string name, string type, string landscape, string status, int danger, string weather)
         {
 
-            // TODO: Проверка входных параметров
             Name = name;
             Type = type;
             Landscape = landscape;

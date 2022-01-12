@@ -7,12 +7,9 @@ namespace Interfaces
     public interface ILocation
     {
 
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public string Landscape { get; set; }
         public string Status { get; set; }
-
         public int Danger { get; set; }
+
 
         public void Destroy();
         public void Curse();

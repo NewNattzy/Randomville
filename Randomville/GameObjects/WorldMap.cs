@@ -27,16 +27,15 @@ namespace GameObjectManagment
             for (int i = 0; i < verticalLendth - 1; i++)
                 for (int j = 0; j < horizontalLendth - 1; j++)
                     mapMarkup[i, j] = Graphics.GetPicture("Landscape");
-                    
-            AddBoundaries();
+
+            AddMapBorders();
+            AddMapBorderCorners();
             AddStaticObjects();
 
         }
 
-
-        private static void AddBoundaries()
+        private static void AddMapBorders()
         {
-
             for (int i = 0; i < horizontalLendth - 1; i++)
             {
                 mapMarkup[0, i] = Graphics.GetPicture("HorizontalWall");
@@ -48,6 +47,10 @@ namespace GameObjectManagment
                 mapMarkup[i, 0] = Graphics.GetPicture("VerticalWall");
                 mapMarkup[i, horizontalLendth - 1] = Graphics.GetPicture("VerticalWall");
             }
+        }
+
+        private static void AddMapBorderCorners()
+        {
 
             mapMarkup[0, 0] = Graphics.GetPicture("UpperLeftCorner");
             mapMarkup[0, horizontalLendth - 1] = Graphics.GetPicture("LowerLeftCorner");
@@ -60,29 +63,27 @@ namespace GameObjectManagment
         private static void AddStaticObjects()
         {
 
-            AddMountainsOnMap();
             AddRiverOnMap();
+            AddMountainsOnMap();
+            // TODO: Дороги, мосты, озера, etc
 
         }
 
 
+
         private static void AddMountainsOnMap()
         {
-
+            
             for (int i = 0; i < 10; i++)
             {
-
-                Randomizer.GetRandPointOnMap(ref x, ref y);
+                Randomizer.RandCordOnMap(ref x, ref y);
                 mapMarkup[y, x] = Graphics.GetPicture("Mountain");
-
             }
 
-            for (int i = 0; i < 90; i++)
+            for (int i = 0; i < 40; i++)
             {
-
-                Randomizer.RandCordNextToWall(ref x, ref y);
+                Randomizer.RandCordNextToBorder(ref x, ref y);
                 mapMarkup[y, x] = Graphics.GetPicture("Mountain");
-
             }
 
         }
@@ -90,13 +91,10 @@ namespace GameObjectManagment
 
         private static void AddRiverOnMap()
         {
-
             for (int i = 0; i < 10; i++)
             {
-
-                Randomizer.RandCordNextToWall(ref x, ref y);
+                Randomizer.RandCordNextToBorder(ref x, ref y);
                 mapMarkup[y, x] = Graphics.GetPicture("River");
-
             }
 
         }

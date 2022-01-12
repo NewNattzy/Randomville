@@ -23,7 +23,7 @@ namespace Helper
         }
 
 
-        internal static void GetRandPointOnMap(ref int xCord, ref int yCord)
+        internal static void RandCordOnMap(ref int xCord, ref int yCord)
         {
 
             xCord = random.Next(1, WorldMap.horizontalLendth - 1);
@@ -32,7 +32,7 @@ namespace Helper
         }
 
 
-        internal static void RandCordNextToWall(ref int xCord, ref int yCord)
+        internal static void RandCordNextToBorder(ref int xCord, ref int yCord)
         {
 
             string Side = SideOfWorld[random.Next(0, SideOfWorld.Count)];

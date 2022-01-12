@@ -7,10 +7,11 @@ namespace GameObjects
     public class Army
     {
 
-        [NonSerialized]
-        private readonly Random random = new Random();
+        public readonly string name;
+        public readonly string fraction;
 
-        private const int MAX_ARMY_COUNT = 100;
+        private static readonly Random random = new Random();
+        private static readonly int MAX_ARMY_COUNT = 100;
 
         private List<Enemy> Units = new List<Enemy>();
 
@@ -18,8 +19,8 @@ namespace GameObjects
         public Army(string name, string fraction, int xCord, int yCord)
         {
 
-            Name = name;
-            Fraction = fraction;
+            this.name = name;
+            this.fraction = fraction;
 
             UnitCount = 0;
             Gold = random.Next(10, 200);
@@ -30,10 +31,8 @@ namespace GameObjects
         }
 
 
-        public string? Name { get; set; }
-        public string Fraction { get; set; }
+        public int UnitCount { get; private set; }
 
-        public int UnitCount { get; set; }
         public int Gold { get; set; }
         public int KillScore { get; set; }
         public int DestroyScore { get; set; }
@@ -53,42 +52,45 @@ namespace GameObjects
         }
 
 
-        public void Add(Enemy enemy)
+        public void AddUnitInArmy(Enemy enemy)
         {
 
-            if (enemy == null)
-                throw new ArgumentNullException(nameof(enemy));
+            CheckArgumentForNull(enemy);
 
             if (Units.Count < MAX_ARMY_COUNT)
             {
-
                 Units.Add(enemy);
                 UnitCount = Units.Count;
-
             }
                 
         }
 
-
-        public void Remove(Enemy enemy)
+        public void RemoveUnitFromArmy(Enemy enemy)
         {
 
-            if (enemy == null)
-                throw new ArgumentNullException(nameof(enemy));
+            CheckArgumentForNull(enemy);
+
+            UnitCount--;
             Units.Remove(enemy);
 
+        }
+
+        private void CheckArgumentForNull(Enemy enemy)
+        {
+            if (enemy == null)
+                throw new ArgumentNullException(nameof(enemy));
         }
 
 
         public void ShowStructure()
         {
 
-            Console.WriteLine($"{Name}: ");
-            foreach (Enemy enemy in Units)
+            Console.WriteLine($"{name}: ");
+            foreach (Enemy unit in Units)
             {
 
-                Console.WriteLine($"{enemy.Type} {enemy.Rank} {enemy.Name}, характеристики: ");
-                Console.WriteLine($"HP {enemy.Health}, MP {enemy.Mana}, Damage {enemy.Damage}, Level {enemy.Level}\n");
+                Console.WriteLine($"{unit.type} {unit.rank} {unit.name}, характеристики: ");
+                Console.WriteLine($"HP {unit.Health}, MP {unit.Mana}, Damage {unit.Damage}, Level {unit.Level}\n");
 
             }
 
