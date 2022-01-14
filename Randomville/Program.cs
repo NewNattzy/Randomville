@@ -28,6 +28,11 @@ namespace ConsoleGame
 
             GamePreparation();
 
+
+            Player player = new Player("Аргус", 1, 1, 1, 1, 10000, 10000, "Воин");
+            PlayerUpgrade.TryLevelUP(ref player);
+
+
             WorldMap.CreateMap();
             Random random = new Random();
 
@@ -55,7 +60,7 @@ namespace ConsoleGame
 
                 if (MilitaryActions.CheckСonflictsArmiesOnMap(armies) == true)
                 {
-                    MilitaryActions.StartArmyBattle(ref armies);
+                    MilitaryActions.StartArmiesBattle(ref armies);
                 }
 
 
