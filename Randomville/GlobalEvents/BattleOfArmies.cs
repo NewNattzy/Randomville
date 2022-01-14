@@ -12,9 +12,6 @@ namespace GlobalEvents
 
         private static Dictionary<string, int> parametrsSecondArmy = new Dictionary<string, int>() { { "Health", 0 }, { "Mana", 0 }, { "Damage", 0 } };
 
-        private const double MANA_DAMAGE_PERCENT = 0.055;
-
-
         public static Army GetLoserArmyThatBattle(List<Army> armies)
         {
 
@@ -41,7 +38,7 @@ namespace GlobalEvents
                 parametrsFirstArmy["Mana"] += armies[0][unit].Mana;
                 parametrsFirstArmy["Damage"] += armies[0][unit].Damage;
             }
-            parametrsFirstArmy["Damage"] += (int)(parametrsFirstArmy["Mana"] * MANA_DAMAGE_PERCENT);
+            parametrsFirstArmy["Damage"] += GetManaPercentageDamage(parametrsFirstArmy["Mana"]);
 
             for (int unit = 0; unit < armies[1].UnitCount; unit++)
             {
@@ -49,10 +46,17 @@ namespace GlobalEvents
                 parametrsSecondArmy["Mana"] += armies[1][unit].Mana;
                 parametrsSecondArmy["Damage"] += armies[1][unit].Damage;
             }
-            parametrsSecondArmy["Damage"] += (int)(parametrsSecondArmy["Mana"] * MANA_DAMAGE_PERCENT);
+            parametrsSecondArmy["Damage"] += GetManaPercentageDamage(parametrsSecondArmy["Mana"]);
 
         }
 
+        private static int GetManaPercentageDamage(int mana)
+        {
+
+            const double MANA_DAMAGE_PERCENT = 0.055;
+            return (int)(mana * MANA_DAMAGE_PERCENT);
+
+        }
 
         private static Army GetLosingArmy(List<Army> armies)
         {
