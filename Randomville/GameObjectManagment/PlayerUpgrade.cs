@@ -4,6 +4,7 @@ using GameObjects;
 
 namespace GameObjectManagment
 {
+
     public static class PlayerUpgrade
     {
 
@@ -31,6 +32,25 @@ namespace GameObjectManagment
             }
 
             player = temp;
+
+        }
+
+
+        private static void GetReplicasWhenLevelUp(string message)
+        {
+
+            if (message == "Begin")
+            {
+                Console.WriteLine($"Оракул: Сейчас у тебя {temp.Exp} опыта и {temp.Gold} золота.");
+                Console.WriteLine($"Оракул: Для перехода на следующий уровень нужно {expToLevelUp} опыта и {temp.Level * 50} золота.");
+                Console.WriteLine("Оракул: Ты точно хочешь поднять уровень? Враги тоже станут сильнее!\n");
+                Console.Write($"{temp.name}: ");
+            }
+            else if (message == "End")
+            {
+                Console.WriteLine($"\nОракул: Твой уровень вырос! Теперь ты {temp.special} {temp.Level} уровня.");
+                Console.WriteLine($"Оракул: Текущий опыт {temp.Exp}, остаток золота {temp.Gold}.\n");
+            }
 
         }
 
@@ -66,24 +86,6 @@ namespace GameObjectManagment
 
         }
 
-        private static void GetReplicasWhenLevelUp(string message)
-        {
-
-            if (message == "Begin")
-            {
-                Console.WriteLine($"Оракул: Сейчас у тебя {temp.Exp} опыта и {temp.Gold} золота.");
-                Console.WriteLine($"Оракул: Для перехода на следующий уровень нужно {expToLevelUp} опыта и {temp.Level * 50} золота.");
-                Console.WriteLine("Оракул: Ты точно хочешь поднять уровень? Враги тоже станут сильнее!\n");
-                Console.Write($"{temp.name}: ");
-            }
-            else if (message == "End")
-            {
-                Console.WriteLine($"\nОракул: Твой уровень вырос! Теперь ты {temp.special} {temp.Level} уровня.");
-                Console.WriteLine($"Оракул: Текущий опыт {temp.Exp}, остаток золота {temp.Gold}.\n");
-            }
-
-        }
     }
-
 
 }
