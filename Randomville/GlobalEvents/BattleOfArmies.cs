@@ -54,7 +54,7 @@ namespace GlobalEvents
                 param["Mana"] += armies[unit].Mana;
                 param["Damage"] += armies[unit].Damage;
             }
-            param["Damage"] += GetManaPercentageDamage(parametrsFirstArmy["Mana"]);
+            param["Damage"] += GetManaPercentageDamage(param["Mana"]);
 
         }
 

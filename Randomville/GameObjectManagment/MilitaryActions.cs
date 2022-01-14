@@ -41,7 +41,7 @@ namespace GameObjectManagment
 
         }
 
-        public static void StartArmyBattle(ref List<Army> armies)
+        public static void StartArmiesBattle(ref List<Army> armies)
         {
 
             List<Army>? ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
