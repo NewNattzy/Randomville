@@ -22,7 +22,6 @@ namespace GameObjects
 
         public int Resources { get; set; }
 
-
         public void ShowParameters()
         {
 
