@@ -8,8 +8,7 @@ namespace GameManagment
     public static class PlayerControl
     {
 
-        private delegate void Keystrok();
-        private static Dictionary<ConsoleKey, Keystrok> controlKeys = new Dictionary<ConsoleKey, Keystrok>();
+        private static Dictionary<ConsoleKey, Action> controlKeys = new Dictionary<ConsoleKey, Action>();
 
         private static bool interrupOperation = false;
         private static ConsoleKeyInfo pressedKey;
@@ -21,16 +20,15 @@ namespace GameManagment
         public static void SetControlKey()
         {
 
-            controlKeys.Add(ConsoleKey.UpArrow, new Keystrok(UpArrowPress));
-            controlKeys.Add(ConsoleKey.DownArrow, new Keystrok(DownArrowPress));
-            controlKeys.Add(ConsoleKey.LeftArrow, new Keystrok(LeftArrowPress));
-            controlKeys.Add(ConsoleKey.RightArrow, new Keystrok(RightArrowPress));
-            controlKeys.Add(ConsoleKey.Enter, new Keystrok(EnterPress));
-            controlKeys.Add(ConsoleKey.I, new Keystrok(KeyInventoryPress));
-            controlKeys.Add(ConsoleKey.M, new Keystrok(KeyMapPress));
+            controlKeys.Add(ConsoleKey.UpArrow, UpArrowPress);
+            controlKeys.Add(ConsoleKey.DownArrow, DownArrowPress);
+            controlKeys.Add(ConsoleKey.LeftArrow, LeftArrowPress);
+            controlKeys.Add(ConsoleKey.RightArrow, RightArrowPress);
+            controlKeys.Add(ConsoleKey.Enter, EnterPress);
+            controlKeys.Add(ConsoleKey.I, KeyInventoryPress);
+            controlKeys.Add(ConsoleKey.M, KeyMapPress);
 
         }
-
 
         public static async void WaitingForPlayerInputAsync()
         {
