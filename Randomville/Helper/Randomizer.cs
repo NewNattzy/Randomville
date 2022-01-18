@@ -1,5 +1,7 @@
 ﻿using System;
+using GameObjects;
 using GameObjectManagment;
+using GameConfig;
 
 
 namespace Helper
@@ -12,6 +14,14 @@ namespace Helper
         private static List<string> SideOfWorld = new List<string>() { "North", "South", "West", "East" };
 
         internal static Random random = new Random();
+
+
+        internal static int RandArmyCount()
+        {
+
+            return random.Next(0, (int)(Config.GameObjectsLimit * 0.1));
+
+        }
 
 
         internal static void RandMovingByOneCell(ref int xCord, ref int yCord)
