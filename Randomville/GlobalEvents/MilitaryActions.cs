@@ -11,15 +11,18 @@ namespace GameObjectManagment
     public static class MilitaryActions
     {
 
-        public static bool CheckСonflictsArmiesOnMap(List<Army> armies)
-        {
-            
-            if(SearchOverlappingArmiesOnMap(armies) != null)
-            {
-                return true;
-            }
+        private static List<Army>? ParticipantBattle;
 
-            return false;
+        public static void InitializationСonflictsArmiesOnMap(ref List<Army> armies)
+        {
+
+            ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
+
+            if (ParticipantBattle != null)
+            {
+                FillingWorldMap.armies.Remove(BattleOfArmies.GetLoserArmyThatBattle(ParticipantBattle));
+
+            }
 
         }
 
@@ -40,19 +43,6 @@ namespace GameObjectManagment
             return null;
 
         }
-
-        public static void StartArmiesBattle(ref List<Army> armies)
-        {
-
-            List<Army>? ParticipantBattle = SearchOverlappingArmiesOnMap(armies);
-            if (ParticipantBattle != null)
-            {
-                armies.Remove(BattleOfArmies.GetLoserArmyThatBattle(ParticipantBattle));
-            }
-           
-        }
-
-
 
 
         // TODO: Проблемы с запросами к БД, подумать над переносом в класс Enemy

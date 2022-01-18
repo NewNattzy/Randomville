@@ -17,11 +17,14 @@ namespace GameObjects
             this.name = name;
             this.special = special;
 
+            XCord = 5;
+            YCord = 5;
         }
 
+        public int XCord { get; set; }
+        public int YCord { get; set; }
 
         public int Resources { get; set; }
-
 
         public void ShowParameters()
         {

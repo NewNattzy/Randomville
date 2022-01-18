@@ -115,6 +115,14 @@ namespace GameObjects
 
         }
 
+        public void ShowParameters()
+        {
+            Console.WriteLine($"Перед вами великий город {name}!");
+            Console.WriteLine($"В данный момент {name} {Status}.");
+            Console.WriteLine($"Его население составляет {Population}.");
+            Console.WriteLine($"А в казне находится {Gold} золота.\n");
+        }
+
     }
 
 }

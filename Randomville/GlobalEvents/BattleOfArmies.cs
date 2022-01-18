@@ -94,25 +94,6 @@ namespace GlobalEvents
 
         }
 
-
     }
 
 }
-
-
-
-//for (int unit = 0; unit < armies[0].UnitCount; unit++)
-//{
-//    parametrsFirstArmy["Health"] += armies[0][unit].Health;
-//    parametrsFirstArmy["Mana"] += armies[0][unit].Mana;
-//    parametrsFirstArmy["Damage"] += armies[0][unit].Damage;
-//}
-//parametrsFirstArmy["Damage"] += GetManaPercentageDamage(parametrsFirstArmy["Mana"]);
-
-//for (int unit = 0; unit < armies[1].UnitCount; unit++)
-//{
-//    parametrsSecondArmy["Health"] += armies[1][unit].Health;
-//    parametrsSecondArmy["Mana"] += armies[1][unit].Mana;
-//    parametrsSecondArmy["Damage"] += armies[1][unit].Damage;
-//}
-//parametrsSecondArmy["Damage"] += GetManaPercentageDamage(parametrsSecondArmy["Mana"]);

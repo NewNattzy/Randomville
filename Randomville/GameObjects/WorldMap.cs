@@ -5,7 +5,7 @@ using GameObjects;
 using Helper;
 
 
-namespace GameObjectManagment
+namespace GameObjects
 {
 
     public static class WorldMap
@@ -13,12 +13,13 @@ namespace GameObjectManagment
 
         internal static readonly int verticalLendth = Config.MaxMapSize / 5;
         internal static readonly int horizontalLendth = Config.MaxMapSize;
-        private static readonly int[] restrictedArea = new int[3] { 0, horizontalLendth - 1, verticalLendth - 1 };
+        private static readonly int[] restrictedArea = new int[3] { 0, horizontalLendth - 1, verticalLendth - 1};
 
         private static int x;
         private static int y;
 
         private static char[,] mapMarkup = new char[verticalLendth, horizontalLendth];
+        private static char playerLocation = Graphics.GetPicture("Landscape");
 
 
         public static void CreateMap()
@@ -31,6 +32,9 @@ namespace GameObjectManagment
             AddMapBorders();
             AddMapBorderCorners();
             AddStaticObjects();
+
+            // TODO: переместить генерацию персонажа на карте в генерацию самого персонажа
+            mapMarkup[5, 5] = Graphics.GetPicture("Player");
 
         }
 
@@ -172,6 +176,36 @@ namespace GameObjectManagment
                 if (!Graphics.nonRewritableTiles.Contains(mapMarkup[armies[i].YCord, armies[i].XCord]))
                     mapMarkup[armies[i].YCord, armies[i].XCord] = armies[i].Graphics;
 
+            }
+
+        }
+
+
+
+
+
+
+
+
+        // TODO: убрать грязь
+        public static void ClearPlayer(int x, int y)
+        {
+
+            mapMarkup[y, x] = playerLocation;
+
+        }
+
+        public static void PlayerMove(int x, int y)
+        {
+
+            if (!restrictedArea.Contains(y) || !restrictedArea.Contains(x))
+            {
+                playerLocation = mapMarkup[y, x];
+                mapMarkup[y, x] = Graphics.GetPicture("Player");
+            }
+            else
+            {
+                Console.WriteLine("Ты че петух?");
             }
 
         }
