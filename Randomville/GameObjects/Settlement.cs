@@ -1,5 +1,6 @@
 ﻿using System;
 using Interfaces;
+using Helper;
 
 
 namespace GameObjects
@@ -16,6 +17,7 @@ namespace GameObjects
         private protected Random random = new Random();
         private protected Dictionary<char, int> cordOnMap = new Dictionary<char,int>();
 
+        public Coordinate cord;
 
         public Settlement(string name, string type, string landscape, int danger, int population, string weather, int xCord, int yCord)
         {
@@ -31,8 +33,7 @@ namespace GameObjects
             Danger = danger;
             Population = population;
 
-            XCord = xCord;
-            YCord = yCord;
+            cord = new Coordinate(xCord, yCord);
 
         }
 
@@ -42,9 +43,6 @@ namespace GameObjects
 
         public int Danger { get; set; }
         public int Population { get; set; }
-
-        public int XCord { get; private set; }
-        public int YCord { get; private set; }
 
 
         public void Destroy()

@@ -1,4 +1,7 @@
 ﻿using System;
+using GameObjects;
+using Helper;
+using Resources;
 
 
 namespace GameObjects
@@ -10,6 +13,11 @@ namespace GameObjects
         public readonly string name;
         public readonly string special;
 
+
+        public Coordinate cord;
+        private Random random = new Random();
+
+
         public Player(string name, int basehealth, int basemana, int damage, int level, int exp, int gold, string special)
             : base(basehealth, basemana, damage, level, exp, gold)
         {
@@ -17,12 +25,12 @@ namespace GameObjects
             this.name = name;
             this.special = special;
 
-            XCord = 5;
-            YCord = 5;
+
+            WorldMap.PutObjectOnMap(Graphics.GetPicture("Player"), out cord);
+            cord = new Coordinate(cord.X, cord.Y);
+
         }
 
-        public int XCord { get; set; }
-        public int YCord { get; set; }
 
         public int Resources { get; set; }
 

@@ -3,6 +3,7 @@ using GameObjects;
 using DataBase;
 using Resources;
 using GlobalEvents;
+using Helper;
 
 
 namespace GameObjectManagment
@@ -13,6 +14,19 @@ namespace GameObjectManagment
 
         private static List<Army>? ParticipantBattle;
 
+
+        public static void InitializationPlayerClashWithArmy(ref List<Army> armies, Player player)
+        {
+            for (int i = 0; i < armies.Count; i++)
+            {
+                if (armies[i].cord.CompareTo(player.cord) == 0)
+                {
+                    FillingWorldMap.armies.Remove(armies[i]);
+                    Console.WriteLine("Делаем вид, что игрок победил!");
+                }
+            }
+        }
+
         public static void InitializationСonflictsArmiesOnMap(ref List<Army> armies)
         {
 
@@ -21,7 +35,6 @@ namespace GameObjectManagment
             if (ParticipantBattle != null)
             {
                 FillingWorldMap.armies.Remove(BattleOfArmies.GetLoserArmyThatBattle(ParticipantBattle));
-
             }
 
         }
@@ -33,7 +46,7 @@ namespace GameObjectManagment
             {
                 for (int j = 1; j < armies.Count; j++)
                 {
-                    if (armies[i].XCord == armies[j].XCord && armies[i].YCord == armies[j].YCord && armies[i].fraction != armies[j].fraction)
+                    if (armies[i].cord.CompareTo(armies[j].cord) == 0 && armies[i].fraction != armies[j].fraction)
                     {
                         return new List<Army>() { armies[i], armies[j] };
                     }
@@ -45,7 +58,6 @@ namespace GameObjectManagment
         }
 
 
-        // TODO: Проблемы с запросами к БД, подумать над переносом в класс Enemy
         public static Enemy CreateSingleUnit(string fraction, string rank)
         {
 
@@ -69,7 +81,6 @@ namespace GameObjectManagment
         }
 
 
-        // TODO: Подумать над переносом в класс Army, допилить логику добавления юнита в лист
         public static Army CreateArmy(string fraction, int count)
         {
 
@@ -77,10 +88,10 @@ namespace GameObjectManagment
                 throw new ArgumentNullException(nameof(fraction));
 
 
-            WorldMap.PutObjectOnMap(Graphics.GetPicture(fraction), out int xCord, out int yCord);
+            WorldMap.PutObjectOnMap(Graphics.GetPicture(fraction), out Coordinate cord);
 
 
-            Army army = new Army($"Армия: {fraction} ({count})", fraction, xCord, yCord);
+            Army army = new Army($"Армия: {fraction} ({count})", fraction, cord.X, cord.Y);
             army.Graphics = Graphics.GetPicture(fraction);
 
 
@@ -101,7 +112,6 @@ namespace GameObjectManagment
             return army;
 
         }
-
 
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using GameObjects;
 using Resources;
+using Helper;
 
 
 namespace GameObjectManagment
@@ -33,9 +34,9 @@ namespace GameObjectManagment
             int danger = random.Next(0, 3);
             int population = random.Next(1000, 2500);
 
-            WorldMap.PutObjectOnMap(Graphics.GetPicture("City"), out int xCord, out int yCord);
+            WorldMap.PutObjectOnMap(Graphics.GetPicture("City"), out Coordinate cord);
 
-            return new City(name, type, landscape, danger, population, weather, xCord, yCord);
+            return new City(name, type, landscape, danger, population, weather, cord.X, cord.Y);
 
         }
 
@@ -74,12 +75,13 @@ namespace GameObjectManagment
         }
 
 
+        // TODO: не работает? Проверить
         public static void CheckCityConflict(ref List<Army> armies, ref List<City> cities)
         {
 
             for (int i = 0; i < armies.Count; i++)
                 for (int j = 0; j < cities.Count; j++)
-                    if (armies[i].XCord == cities[j].XCord && armies[i].YCord == cities[j].YCord)
+                    if (armies[i].cord.CompareTo(cities[j].cord) == 0)
                         BesiegeCity(armies[i], cities[j]);
 
             CheckCitiesStatus(cities);
@@ -94,7 +96,7 @@ namespace GameObjectManagment
                 if (cities[i].Status == "Уничтожен")
                 {
 
-                    WorldMap.RemoveObjectFromMap(cities[i].XCord, cities[i].YCord);
+                    WorldMap.RemoveObjectFromMap(cities[i].cord.X, cities[i].cord.Y);
                     cities.RemoveAt(i);
 
                 }
