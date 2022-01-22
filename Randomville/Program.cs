@@ -1,7 +1,6 @@
 ﻿using System;
 using GameConfig;
 using GameObjects;
-using GameObjectManagment;
 using GameManagment;
 using Resources;
 
@@ -19,18 +18,18 @@ namespace ConsoleGame
 
             GamePreparation();
 
-            Player player = new Player("kek", 1, 1, 1, 1, 1, 1, "kek");
+            Player player = new Player("Аргус", 100, 100, 100, 10, 1000, 1000, "Воин");
             PlayerControl.SetPlayerStartPosition(player);
 
             Task.Factory.StartNew(ActivatingSimulationOfLife);
 
+            ShowMainMenu();
 
             while (true)
             {
                 PlayerControl.WaitingForPlayerInputAsync();
                 Thread.Sleep(1000);
             }
-
  
         }
 
@@ -43,6 +42,13 @@ namespace ConsoleGame
             WorldMap.CreateMap();
             PlayerControl.SetControlKey();
 
+        }
+
+        private static void ShowMainMenu()
+        {
+            Console.WriteLine("Добро пожаловать в Randomville!");
+            Console.WriteLine("Открыть карту, клавиша - M");
+            Console.WriteLine("Открыть инвентарь, клавиша - I");
         }
 
 
