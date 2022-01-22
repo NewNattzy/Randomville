@@ -7,7 +7,6 @@ namespace Items
     public class Item
     {
 
-        // TODO: Использовать коллекции и LINQ для хранения предметов в рюкзаке и их добавлении/поиске/удалении
         public int ID { get; set; }
         public int Cost { get; set; }
 
