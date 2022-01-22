@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GameConfig;
 using Resources;
 using GameObjects;
@@ -178,20 +178,45 @@ namespace GameObjects
         }
 
 
+
+        // TODO: Исправить, временная "реализация"
         public static void RemovePlayerFromOldPoint(int x, int y)
         {
 
-            mapMarkup[y, x] = oldPlayerLocation;
+            try
+            {
 
+                mapMarkup[y, x] = oldPlayerLocation;
+
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+
+                Console.WriteLine("Выход игрока за границы карты");
+                Console.WriteLine(ex.Message);
+
+            }
+            
         }
 
         public static void PlayerMove(int x, int y)
         {
-
-            if (!restrictedArea.Contains(y) || !restrictedArea.Contains(x))
+            try
             {
-                oldPlayerLocation = mapMarkup[y, x];
-                mapMarkup[y, x] = Graphics.GetPicture("Player");
+
+                if (!restrictedArea.Contains(y) || !restrictedArea.Contains(x))
+                {
+                    oldPlayerLocation = mapMarkup[y, x];
+                    mapMarkup[y, x] = Graphics.GetPicture("Player");
+                }
+
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+
+                Console.WriteLine("Выход игрока за границы карты");
+                Console.WriteLine(ex.Message);
+
             }
 
         }
