@@ -41,41 +41,6 @@ namespace GameObjectManagment
         }
 
 
-        public static Village CreateVillage()
-        {
-
-            string name = "";
-            string type = "";
-            string landscape = "";
-            string weather = "";
-
-            int danger = 0;
-            int population = 0;
-
-            int xCord = 1;
-            int yCord = 2;
-
-            return new Village(name, type, landscape, danger, population, weather, xCord, yCord);
-
-        }
-
-
-        public static Wilderness CreateWilderness()
-        {
-
-            string name = "";
-            string type = "";
-            string landscape = "";
-            string weather = "";
-            string status = "";
-            int danger = 0;
-
-            return new Wilderness(name, type, landscape, status, danger, weather);
-
-        }
-
-
-        // TODO: не работает? Проверить
         public static void CheckCityConflict(ref List<Army> armies, ref List<City> cities)
         {
 
@@ -104,7 +69,6 @@ namespace GameObjectManagment
             return cities;
 
         }
-
 
         public static void BesiegeCity(Army army, City city)
         {
