@@ -38,7 +38,7 @@ namespace GameManagment
 
         public static async void WaitingForPlayerInputAsync()
         {
-            
+
             while (true)
             {
                 await Task.Run(() => PlayerInput());
@@ -122,6 +122,8 @@ namespace GameManagment
 
         }
 
+
+        // Немного нелогично держать здесь
         private static void DisplayWorldMap()
         {
 
