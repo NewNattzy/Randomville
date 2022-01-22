@@ -1,4 +1,5 @@
 ﻿using System;
+using Helper;
 
 
 namespace GameObjects
@@ -15,8 +16,10 @@ namespace GameObjects
 
         private List<Enemy> Units = new List<Enemy>();
 
+        public Coordinate cord;
 
-        public Army(string name, string fraction, int xCord, int yCord)
+
+        public Army(string name, string fraction, int x, int y)
         {
 
             this.name = name;
@@ -25,8 +28,7 @@ namespace GameObjects
             UnitCount = 0;
             Gold = random.Next(10, 200);
 
-            XCord = xCord;
-            YCord = yCord;
+            cord = new Coordinate(x, y);
 
         }
 
@@ -37,8 +39,6 @@ namespace GameObjects
         public int KillScore { get; set; }
         public int DestroyScore { get; set; }
 
-        public int XCord { get; set; }
-        public int YCord { get; set; }
 
         public char Graphics { get; set; }
 

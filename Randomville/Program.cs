@@ -19,8 +19,11 @@ namespace ConsoleGame
 
             GamePreparation();
 
-            Thread myThread = new Thread(new ThreadStart(ActivationMainSystems));
-            myThread.Start();
+            Player player = new Player("kek", 1, 1, 1, 1, 1, 1, "kek");
+            PlayerControl.SetPlayerStartPosition(player);
+
+            Task.Factory.StartNew(ActivatingSimulationOfLife);
+
 
             while (true)
             {
@@ -43,7 +46,7 @@ namespace ConsoleGame
         }
 
 
-        private static void ActivationMainSystems()
+        private static void ActivatingSimulationOfLife()
         {
 
             while (true)

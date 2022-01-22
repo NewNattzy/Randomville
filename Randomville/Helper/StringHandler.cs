@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace Helper
 {
 
-    internal static class ExtensionMethodsSet
+    public static class StringHandler
     {
 
         internal static string ToUpperFirstChar(this string data)

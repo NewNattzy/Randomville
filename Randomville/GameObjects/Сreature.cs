@@ -1,4 +1,5 @@
 ﻿using System;
+using Helper;
 
 
 namespace GameObjects
@@ -19,7 +20,6 @@ namespace GameObjects
             Gold = gold;
 
         }
-
 
         public int Health { get; set; }
         public int Mana { get; set; }

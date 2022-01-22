@@ -19,7 +19,7 @@ namespace GameObjects
         private static int y;
 
         private static char[,] mapMarkup = new char[verticalLendth, horizontalLendth];
-        private static char playerLocation = Graphics.GetPicture("Landscape");
+        private static char oldPlayerLocation = Graphics.GetPicture("Landscape");
 
 
         public static void CreateMap()
@@ -32,9 +32,6 @@ namespace GameObjects
             AddMapBorders();
             AddMapBorderCorners();
             AddStaticObjects();
-
-            // TODO: переместить генерацию персонажа на карте в генерацию самого персонажа
-            mapMarkup[5, 5] = Graphics.GetPicture("Player");
 
         }
 
@@ -69,7 +66,6 @@ namespace GameObjects
 
             AddRiverOnMap();
             AddMountainsOnMap();
-            // TODO: Дороги, мосты, озера, etc
 
         }
 
@@ -104,21 +100,22 @@ namespace GameObjects
         }
 
 
-        public static void PutObjectOnMap(char objectLabel, out int xCord, out int yCord)
+        public static void PutObjectOnMap(char objectLabel, out Coordinate cord)
         {
 
             do
             {
-                xCord = Randomizer.random.Next(1, horizontalLendth - 1);
-                yCord = Randomizer.random.Next(1, verticalLendth - 1);
+                x = Randomizer.random.Next(1, horizontalLendth - 1);
+                y = Randomizer.random.Next(1, verticalLendth - 1);
+                cord = new Coordinate(x, y);
             }
-            while (mapMarkup[yCord, xCord] != Graphics.GetPicture("Landscape"));
+            while (mapMarkup[cord.Y, cord.X] != Graphics.GetPicture("Landscape"));
             {
-                xCord = Randomizer.random.Next(1, horizontalLendth - 1);
-                yCord = Randomizer.random.Next(1, verticalLendth - 1);
+                cord.X = Randomizer.random.Next(1, horizontalLendth - 1);
+                cord.Y = Randomizer.random.Next(1, verticalLendth - 1);
             }
 
-            mapMarkup[yCord, xCord] = objectLabel;
+            mapMarkup[cord.Y, cord.X] = objectLabel;
 
         }
 
@@ -160,38 +157,31 @@ namespace GameObjects
             for (int i = 0; i < armies.Count; i++)
             {
 
-                if (!Graphics.nonRewritableTiles.Contains(mapMarkup[armies[i].YCord, armies[i].XCord]))
-                    mapMarkup[armies[i].YCord, armies[i].XCord] = Graphics.GetPicture("Landscape");
+                if (!Graphics.nonRewritableTiles.Contains(mapMarkup[armies[i].cord.Y, armies[i].cord.X]))
+                    mapMarkup[armies[i].cord.Y, armies[i].cord.X] = Graphics.GetPicture("Landscape");
 
 
                 Randomizer.RandMovingByOneCell(ref x, ref y);
 
-                if (!restrictedArea.Contains(armies[i].XCord + x) && !restrictedArea.Contains(armies[i].YCord + y))
+                if (!restrictedArea.Contains(armies[i].cord.X + x) && !restrictedArea.Contains(armies[i].cord.Y + y))
                 {
-                    armies[i].XCord += x;
-                    armies[i].YCord += y;
+                    armies[i].cord.X += x;
+                    armies[i].cord.Y += y;
                 }
 
 
-                if (!Graphics.nonRewritableTiles.Contains(mapMarkup[armies[i].YCord, armies[i].XCord]))
-                    mapMarkup[armies[i].YCord, armies[i].XCord] = armies[i].Graphics;
+                if (!Graphics.nonRewritableTiles.Contains(mapMarkup[armies[i].cord.Y, armies[i].cord.X]))
+                    mapMarkup[armies[i].cord.Y, armies[i].cord.X] = armies[i].Graphics;
 
             }
 
         }
 
 
-
-
-
-
-
-
-        // TODO: убрать грязь
-        public static void ClearPlayer(int x, int y)
+        public static void RemovePlayerFromOldPoint(int x, int y)
         {
 
-            mapMarkup[y, x] = playerLocation;
+            mapMarkup[y, x] = oldPlayerLocation;
 
         }
 
@@ -200,12 +190,8 @@ namespace GameObjects
 
             if (!restrictedArea.Contains(y) || !restrictedArea.Contains(x))
             {
-                playerLocation = mapMarkup[y, x];
+                oldPlayerLocation = mapMarkup[y, x];
                 mapMarkup[y, x] = Graphics.GetPicture("Player");
-            }
-            else
-            {
-                Console.WriteLine("Ты че петух?");
             }
 
         }

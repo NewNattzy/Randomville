@@ -13,8 +13,8 @@ namespace GameManagment
         private static bool interrupOperation = false;
         private static ConsoleKeyInfo pressedKey;
 
-        private static int x = 5;
-        private static int y = 5;
+        private static int x;
+        private static int y;
 
 
         public static void SetControlKey()
@@ -28,6 +28,12 @@ namespace GameManagment
             controlKeys.Add(ConsoleKey.I, KeyInventoryPress);
             controlKeys.Add(ConsoleKey.M, KeyMapPress);
 
+        }
+
+        public static void SetPlayerStartPosition(Player player)
+        {
+            x = player.cord.X;
+            y = player.cord.Y;
         }
 
         public static async void WaitingForPlayerInputAsync()
@@ -46,52 +52,46 @@ namespace GameManagment
 
             pressedKey = Console.ReadKey();
 
-            foreach(ConsoleKey key in controlKeys.Keys)
+            if (controlKeys.ContainsKey(pressedKey.Key))
             {
-                if (pressedKey.Key == key)
-                {
-                    controlKeys[key]();
-                }
+                controlKeys[pressedKey.Key]();
             }
 
         }
 
 
-        // TODO: Доработать
+        #region ArrowKey
         public static void UpArrowPress()
         {
-            WorldMap.ClearPlayer(x, y);
-            y--;
-            WorldMap.PlayerMove(x, y);
+            WorldMap.RemovePlayerFromOldPoint(x, y);
+            WorldMap.PlayerMove(x, --y);
         }
 
         private static void DownArrowPress()
         {
-            WorldMap.ClearPlayer(x, y);
-            y++;
-            WorldMap.PlayerMove(x, y);
+            WorldMap.RemovePlayerFromOldPoint(x, y);
+            WorldMap.PlayerMove(x, ++y);
         }
 
         private static void LeftArrowPress()
         {
-            WorldMap.ClearPlayer(x, y);
-            x--;
-            WorldMap.PlayerMove(x, y);
+            WorldMap.RemovePlayerFromOldPoint(x, y);
+            WorldMap.PlayerMove(--x, y);
         }
 
         private static void RightArrowPress()
         {
-            WorldMap.ClearPlayer(x, y);
-            x++;
-            WorldMap.PlayerMove(x, y);
+            WorldMap.RemovePlayerFromOldPoint(x, y);
+            WorldMap.PlayerMove(++x, y);
         }
+        #endregion
 
-
+        #region OtherKey
         private static void EnterPress()
         {
             for (int i = 0; i < FillingWorldMap.cities.Count; i++)
             {
-                if (FillingWorldMap.cities[i].XCord == x && FillingWorldMap.cities[i].YCord == y)
+                if (FillingWorldMap.cities[i].cord.X == x && FillingWorldMap.cities[i].cord.Y == y)
                 {
                     CleaningGUI();
                     FillingWorldMap.cities[i].ShowParameters();
@@ -110,10 +110,9 @@ namespace GameManagment
             CleaningGUI();
             DisplayWorldMap();
         }
+        #endregion
 
 
-
-        // TODO: Перенести/доработать
         private static void CleaningGUI()
         {
 
